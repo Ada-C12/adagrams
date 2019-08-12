@@ -10,3 +10,17 @@ def draw_letters()
   return hand
 end
 
+def uses_available_letters?(input, letters_in_hand)
+  split = input.upcase.split("")
+  
+  split.each do |letter|
+    if letters_in_hand.include? (letter)
+      letters_in_hand.delete_at(letters_in_hand.index(letter))
+    else
+      return false
+    end
+  end
+  
+  return true
+  
+end
