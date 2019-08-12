@@ -1,3 +1,5 @@
+# Wave 1
+
 def draw_letters
   quantity_by_letter = {
     A: 9,
@@ -41,4 +43,20 @@ def draw_letters
   
 end
 
-p draw_letters
+letters_in_hand = draw_letters
+
+# Wave 2
+
+def uses_available_letters?(user_input_word, letters_in_hand)
+  user_input_array = user_input_word.split("")
+  
+  user_input_array.each do |character|
+    if letters_in_hand.include?(character)
+      letters_in_hand.delete(character)
+    end
+  end
+  
+  return letters_in_hand.empty? 
+  
+end
+
