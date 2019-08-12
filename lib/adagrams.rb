@@ -123,7 +123,7 @@ end
 def is_in_english_dict?(input)
   english_words = []
   
-  CSV.foreach("..//assets//dictionary-english.csv") do |row|
+  CSV.foreach("assets//dictionary-english.csv") do |row|
     english_words.push(row[0])
   end
   
