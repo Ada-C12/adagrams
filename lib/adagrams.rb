@@ -35,6 +35,7 @@ end
 
 # Wave 3
 def score_word(word)
+  
   score_hash = {
     A: 1, E: 1, I: 1, O: 1, U: 1, L: 1, N: 1, R: 1, S: 1, T: 1,
     D: 2, G: 2,
@@ -59,3 +60,59 @@ def score_word(word)
   return score_total
 end
 
+# Wave 4
+def highest_score_from(words)
+  
+  words_and_scores = []
+  words.each do |word|
+    words_and_scores.push({word: word, score: score_word(word)})
+  end
+  
+  # find highest score
+  max_score = 0
+  words_and_scores.each do |hash| 
+    if hash[:score] > max_score
+      max_score = hash[:score]
+    end
+  end
+  
+  highest_words = []
+  words_and_scores.each do |hash|
+    if hash[:score] == max_score
+      highest_words.push(hash)
+    end
+  end
+  
+  # return highest scoring word
+  if highest_words.length == 1
+    winner = highest_words[0]
+    return winner
+  else
+    # return word of ten characters
+    highest_words.each do |hash|
+      if hash[:word].length == 10
+        return hash
+      end
+    end
+    
+    # return first shortest word
+    min_length = 10
+    min_words = []
+    highest_words.each do |hash|
+      if hash[:word].length < min_length
+        min_length = hash[:word].length
+      end
+    end
+    
+    highest_words.each do |hash|
+      if hash[:word].length == min_length
+        min_words.push(hash)
+      end
+    end
+    
+    return min_words[0]
+  end
+  
+  return highest_words
+  
+end
