@@ -43,20 +43,23 @@ def draw_letters
   
 end
 
-letters_in_hand = draw_letters
-
 # Wave 2
 
 def uses_available_letters?(user_input_word, letters_in_hand)
   user_input_array = user_input_word.split("")
   
+  validator = 0
+  
   user_input_array.each do |character|
     if letters_in_hand.include?(character)
       letters_in_hand.delete(character)
-    end
+    elsif
+      validator += 1
+      break
+    end 
   end
   
-  return letters_in_hand.empty? 
+  return validator == 0
   
 end
 
