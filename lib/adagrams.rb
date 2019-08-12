@@ -41,4 +41,4 @@ def draw_letters
   
 end
 
-p find_hand
+p draw_letters
