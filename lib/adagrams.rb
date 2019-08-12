@@ -1,3 +1,5 @@
+require "CSV"
+
 # Wave 1
 def draw_letters
   
@@ -115,4 +117,15 @@ def highest_score_from(words)
   
   return highest_words
   
+end
+
+# Wave 5
+def is_in_english_dict?(input)
+  english_words = []
+  
+  CSV.foreach("..//assets//dictionary-english.csv") do |row|
+    english_words.push(row[0])
+  end
+  
+  return english_words.include?(input)
 end
