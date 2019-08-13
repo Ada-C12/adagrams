@@ -1,7 +1,11 @@
+require 'csv'
+
 def draw_letters()
   letter_pool = ["A"] * 9 + ["B"] * 2 + ["C"] * 2 + ["D"] * 4 + ["E"] * 12 + ["F"] * 2 + ["G"] * 3 + ["H"] * 2 + ["I"] * 9 + ["J"] + ["K"] + ["L"] * 4 + ["M"] * 2 + ["N"] * 6 + ["O"] * 8 + ["P"] * 2 + ["Q"] + ["R"] * 6 + ["S"] * 4 + ["T"] * 6 + ["U"] * 4 + ["V"] * 2 + ["W"] * 2 + ["X"] + ["Y"] * 2 + ["Z"]
   hand = []
   
+  # Shuffling once resulted in too many duplicates.
+  # The program shuffles multiple times.
   10.times do
     letter_pool.shuffle!
     hand << letter_pool.pop
@@ -73,3 +77,14 @@ def highest_score_from(words)
     return min_winners
   end
 end
+
+#Only works if you know the absolute file path to the dictionary on your computer.
+# def is_in_english_dict?(input)
+#   dictionary = CSV.read("../assets/dictionary-english.csv")
+
+#   if dictionary.include? [input]
+#     return true
+#   else
+#     return false
+#   end
+# end
