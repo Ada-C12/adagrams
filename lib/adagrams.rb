@@ -44,7 +44,7 @@ end
 def uses_available_letters?(input, letters_in_hand)
   current_letters_in_hand = letters_in_hand.dup
   # split user input into array of chars
-  characters = input.upwhen.split('')
+  characters = input.upcase.split('')
   characters.each do |char|
     index = current_letters_in_hand.find_index(char)
     if index
