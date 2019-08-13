@@ -8,3 +8,16 @@ def draw_letters
   
   return letters.flatten.sample(10)
 end
+
+# method may change stings in letters_in_hand 
+def uses_available_letters?(input, letters_in_hand)
+  input.each_char do |c|
+    index = letters_in_hand.find_index(c)
+    if index.nil?
+      return false
+    else
+      letters_in_hand.delete_at(index)
+    end 
+  end
+return true
+end
