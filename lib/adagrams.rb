@@ -1,4 +1,5 @@
 require "CSV"
+require "pry"
 
 # Wave 1
 def draw_letters
@@ -24,8 +25,8 @@ end
 def uses_available_letters?(input, letters_in_hand)
   user_string = input.upcase
   letters_to_check = letters_in_hand.dup
-  user_string.length.times do |num|
-    tile_position = letters_to_check.index(user_string[num])
+  user_string.length.times do |i|
+    tile_position = letters_to_check.index(user_string[i])
     if !tile_position
       return false
     else
@@ -64,59 +65,42 @@ end
 
 # Wave 4
 def highest_score_from(words)
+  words_and_scores = {}
   
-  words_and_scores = []
   words.each do |word|
-    words_and_scores.push({word: word, score: score_word(word)})
+    words_and_scores[word.to_sym] = score_word(word)
   end
   
-  # find highest score
-  max_score = 0
-  words_and_scores.each do |hash| 
-    if hash[:score] > max_score
-      max_score = hash[:score]
-    end
-  end
+  max_score = words_and_scores.values.max
   
   highest_words = []
-  words_and_scores.each do |hash|
-    if hash[:score] == max_score
-      highest_words.push(hash)
+  
+  words_and_scores.each do |word, score|
+    if score == max_score
+      highest_words.push(word.to_s)
     end
   end
   
-  # return highest scoring word
+  winning_word = nil
   if highest_words.length == 1
-    winner = highest_words[0]
-    return winner
+    winning_word = highest_words[0]
   else
-    # return word of ten characters
-    highest_words.each do |hash|
-      if hash[:word].length == 10
-        return hash
+    
+    highest_words.each do |word|
+      if word.length == 10
+        winning_word = word
+        break
+      end
+      
+      if !winning_word
+        winning_word = highest_words.min_by do |word|
+          word.length
+        end
       end
     end
-    
-    # return first shortest word
-    min_length = 10
-    min_words = []
-    highest_words.each do |hash|
-      if hash[:word].length < min_length
-        min_length = hash[:word].length
-      end
-    end
-    
-    highest_words.each do |hash|
-      if hash[:word].length == min_length
-        min_words.push(hash)
-      end
-    end
-    
-    return min_words[0]
   end
   
-  return highest_words
-  
+  return {word: winning_word, score: max_score}
 end
 
 # Wave 5
