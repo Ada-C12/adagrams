@@ -24,3 +24,56 @@ def uses_available_letters?(input, letters_in_hand)
   return true
   
 end
+
+def score_word(word)
+  word_arr = word.upcase.split("")
+  points = 0
+  word_arr.each do |letter|
+    case letter
+    when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      points += 1
+    when "D", "G"
+      points += 2
+    when "B", "C", "M", "P"
+      points += 3
+    when "F", "H", "V", "W", "Y"
+      points += 4
+    when "K"
+      points += 5
+    when "J", "X"
+      points += 8
+    when "Q", "Z"
+      points += 10
+    end
+  end
+  
+  if word_arr.length >= 7
+    points += 8
+  end
+  
+  return points
+end
+
+
+#return :word and :score
+def highest_score_from(words)
+  word_score = {}
+  
+  words.each do |word|
+    word_score[word] = score_word(word)
+  end
+  
+  max = word_score.values.max
+  
+  winners = word_score.select {|k,v| v == max}
+  
+  winners.each do |key, value|
+    if key.length == 10
+      return {key => value}
+    else 
+      min = winners.min_by {|k,v| k.length}
+      return {word: min[0], score: min[1]}
+    end
+  end
+  
+end
