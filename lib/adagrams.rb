@@ -34,14 +34,16 @@ end
 
 # Wave 2
 def uses_available_letters?(test_word, drawn_letters)
+  
+  a = drawn_letters
+  drawn_letters_2 = a
   input_letters = test_word.split('')
   input_letters = input_letters.map {|letter| letter.upcase}
-  # puts input_letters
   # binding.pry
   input_letters.each do |letter|
-    index = drawn_letters.index(letter)
+    index = drawn_letters_2.index(letter)
     if index != nil
-      drawn_letters.delete_at(index)
+      drawn_letters_2.delete_at(index)
     else
       return false
     end
@@ -49,4 +51,20 @@ def uses_available_letters?(test_word, drawn_letters)
   return true
 end
 
-# puts uses_available_letters?("c", ["A","D","A","C","K"])
+
+puts uses_available_letters?("kada", ["A","D","A","C","K"])
+
+
+# Wave 3
+def score_word(word)
+  score_chart = {
+    "1" => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+    "2" => ["D", "G"],
+    "3" => ["B", "C", "M", "P"],
+    "4" => ["F", "H", "V", "W", "Y"],
+    "5" => ["K"],
+    "8" => ["J", "X"],
+    "10" => ["Q", "Z"]
+  }
+  
+end
