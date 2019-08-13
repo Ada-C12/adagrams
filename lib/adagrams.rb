@@ -1,3 +1,5 @@
+require 'pry'
+
 ####################### WAVE 1 ##########################
 # preliminary set up
 letters = %w[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]
@@ -19,22 +21,15 @@ def draw_letters
   return PILE.sample(10)
 end
 
-# letters_in_hand = draw_letters
-# p letters_in_hand
-
-
-
-
 ####################### WAVE 2 ##########################
-# print "Give me a word: "
-# input = gets.chomp.upcase
 
 def uses_available_letters?(input, letters_in_hand)
+  clone_letters_in_hand = letters_in_hand.dup
 
   # split input into individual letters
   input_array = input.split(//)
 
-  if input.length > letters_in_hand.length
+  if input.length > clone_letters_in_hand.length
     # puts "Your word is too long!"
     return false
   elsif input.length == 0
@@ -45,9 +40,9 @@ def uses_available_letters?(input, letters_in_hand)
 
   # check letters against letters_in_hand
   input_array.length.times do |index|
-    if letters_in_hand.include? input_array[index]
-      garbage_index = letters_in_hand.rindex(input_array[index])
-      letters_in_hand.delete_at(garbage_index)
+    if clone_letters_in_hand.include? input_array[index]
+      garbage_index = clone_letters_in_hand.rindex(input_array[index])
+      clone_letters_in_hand.delete_at(garbage_index)
     else
       # puts "Letter #{input_array[index]} is not in your hand!"
       return false
@@ -56,11 +51,6 @@ def uses_available_letters?(input, letters_in_hand)
 
   return true
 end
-
-# p uses_available_letters?(input, letters_in_hand)
-
-
-
 
 ####################### WAVE 3 ##########################
 
@@ -90,25 +80,25 @@ def highest_score_from(words)
   winner = nil
 
   words.each do |word|
-
+  
     score = score_word(word)
+    # binding.pry
     if score > highest_score
       highest_score = score
       winner = word
     elsif score == highest_score
-      if word.length == 10
+      if word.length == 10 && word.length != winner.length
         winner = word
-      else word.length < winner.length
-        winner = word
+      elsif word.length < winner.length && winner.length != 10
+        winner = word     
       end
     end
+
   end
 
- 
   return {word: winner, score: highest_score}
 
 end
 
-# p highest_score_from(["BABYX", "ZIX"])
 
 
