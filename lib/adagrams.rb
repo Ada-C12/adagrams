@@ -57,3 +57,28 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
+# WAVE 3
+def score_word(word)
+  characters = word.split('')
+  score = 0
+  characters.each do |letter|
+    case letter.upcase
+    when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      score += 1
+    when "D", "G"
+      score += 2
+    when "B", "C", "M", "P"
+      score += 3
+    when "F", "H", "V", "W", "Y"
+      score += 4
+    when "K"
+      score += 5
+    when "J", "X"
+      score += 8
+    when "Q", "Z"
+      score += 10
+    end
+    
+  end
+  return score
+end
