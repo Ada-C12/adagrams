@@ -54,3 +54,35 @@ def draw_letters
   end
   return hand
 end
+
+# wave-2
+def uses_available_letters?(input, letters_in_hand)
+  input_as_array = input.upcase.split("") 
+  if input_as_array.length > letters_in_hand.length
+    return false
+  else
+    input_as_array.each do |c|
+      comparison = false
+      index = 0
+      while comparison == false
+        if letters_in_hand[index] == c
+          letters_in_hand.delete_at(index)
+          comparison = true
+        elsif index == letters_in_hand.length - 1
+          comparison = true
+        end
+        index += 1
+      end
+    end
+    if letters_in_hand.length == SIZE_OF_HAND - input_as_array.length
+      return true
+    else
+      return false
+    end
+  end
+end
+# letters = ["A", "B", "C", "D", "E", "A"]
+# string = "abz"
+
+# puts uses_available_letters?(string, letters)
+# print letters
