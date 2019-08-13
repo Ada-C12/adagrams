@@ -82,6 +82,33 @@ def score_word(word)
   return score
 end
 
-# p score_word("hahahahaha")
+####################### WAVE 4 ##########################
+words = []
+
+def highest_score_from(words)
+  highest_score = 0
+  winner = nil
+
+  words.each do |word|
+
+    score = score_word(word)
+    if score > highest_score
+      highest_score = score
+      winner = word
+    elsif score == highest_score
+      if word.length == 10
+        winner = word
+      else word.length < winner.length
+        winner = word
+      end
+    end
+  end
+
+ 
+  return {word: winner, score: highest_score}
+
+end
+
+# p highest_score_from(["BABYX", "ZIX"])
 
 
