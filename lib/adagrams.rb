@@ -87,3 +87,23 @@ def score_word(word)
   end
   return score
 end
+
+# WAVE 4
+def highest_score_from(words)
+  results =  words.map {|word| { word: word, score: score_word(word)} }
+  best_result = results.max_by { |obj| obj[:score]}
+  high_scores = []
+  results.each do |obj|  
+    if obj[:score] == best_result[:score] 
+      high_scores << obj[:word]
+    end
+  end
+  
+  winner = high_scores.select { |element| element.length == 10}
+  if !winner.empty?
+    winner = winner[0]
+  else
+    winner = high_scores.min_by { |element| element.length }
+  end
+  return { word: winner, score: best_result[:score] }
+end
