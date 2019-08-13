@@ -28,15 +28,32 @@ def draw_letters()
     Z: ["Z"]
   }
   
+  # WAVE 1
   letters = distribution.values.flatten
   # array of 10 strings
   strings = []
-  
   10.times do |index| 
     strings << letters.sample
     letters.shuffle!
   end
   
   return strings
+end
+
+# WAVE 2
+def uses_available_letters?(input, letters_in_hand)
+  current_letters_in_hand = letters_in_hand.dup
+  # split user input into array of chars
+  characters = input.upwhen.split('')
+  characters.each do |char|
+    index = current_letters_in_hand.find_index(char)
+    if index
+      current_letters_in_hand.delete_at(index)
+    else 
+      return false
+    end
+  end
+  # letters_in_hand = current_letters_in_hand
+  return true
 end
 
