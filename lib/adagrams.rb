@@ -33,23 +33,27 @@ def draw_letters
       all_letters_array << letter
     end
   end
-  
+
   letters_in_hand = all_letters_array.sample(10)
-  
+
 end
 
 letters_in_hand = draw_letters
-p letters_in_hand
-print "Word please! "
-input = gets.chomp.upcase
 
 def uses_available_letters?(input, letters_in_hand)
   input = input.chars
-  
+  # Make new Hash to store letters and occurence
+  letter_count = Hash.new(0)
+  letters_in_hand.each do |letter|
+    letter_count[letter] += 1
+  end
   input.each do |letter|
-    letters_in_hand
     if letters_in_hand.include?(letter)
-      letters_in_hand.delete_at(letters_in_hand.index(letter))
+      letter_count[letter] -= 1
+      if letter_count[letter] < 0
+        return false
+        break
+      end
     else
       return false
       break
@@ -57,9 +61,40 @@ def uses_available_letters?(input, letters_in_hand)
   end
   return true
 end
+#   new_array = []
+
+#   input.each do |letter|
+#     if letters_in_hand.include?(letter)
+#     letters_in_hand.delete_at(letters_in_hand.index(letter))
+#     new_array << letter
+#     else
+#       return false
+#       break
+#     end
+#   end
+#   letters_in_hand = new_array + letters_in_hand
+#     p new_array
+#     p letters_in_hand
+#     return true
+# end
 
 
-puts uses_available_letters?(input, letters_in_hand)
+
+# We can't alter the hand.
+# Make a new array, move each matching letter into it, move rest into it, have letters_in_hand point to that array after input has been iterated through
+# y << x.delete('b')
+
+# OR put letters_in_hand into hash w/ occurrence as value with += 1
+# each iteration if matches hash["A"] -= 1
+# if <0 return false
+
+#puts uses_available_letters?(input, letters_in_hand)
+
+# wave three-- use hash of arrays. point = key, letters = values in an array
+# points_hash {
+#   [1 =>
+#     ["A",...]
+# }
 
 
 
