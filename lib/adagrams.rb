@@ -1,4 +1,6 @@
 
+require 'pry'
+
 
 def draw_letters 
     letters_pool = [("A " * 9).split, ("B " * 2).split, ("C " * 2).split, ("D " * 4).split, 
@@ -11,5 +13,21 @@ def draw_letters
         hand = letters_pool.sample(10)
         return hand 
     end 
+    
+    
+    
+    def uses_available_letters?(input, hand)
+        hand_copy = hand.dup
+        input.split('').each do |letters|
+            if  hand_copy.include? (letters)
+                hand_copy.slice!(hand_copy.index(letters))
+            else 
+                return false
+            end
+        end 
+        
+        
+        return true 
+    end  
     
     
