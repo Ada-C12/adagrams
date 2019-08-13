@@ -64,7 +64,8 @@ end
 # WAVE 3
 def score_word(word)
   characters = word.split('')
-  score = 0
+  # give additional 8 points for word if its length is 7 to 10
+  score = (characters.length >= 7) ? 8 : 0
   characters.each do |letter|
     case letter.upcase
     when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
