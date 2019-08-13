@@ -1,5 +1,4 @@
 require "CSV"
-require "pry"
 
 # Wave 1
 def draw_letters
