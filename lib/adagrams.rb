@@ -30,17 +30,18 @@ def draw_letters
   return generate
 end
 
+# require 'pry'
 
 # Wave 2
 def uses_available_letters?(test_word, drawn_letters)
   input_letters = test_word.split('')
   input_letters = input_letters.map {|letter| letter.upcase}
   # puts input_letters
-  
+  # binding.pry
   input_letters.each do |letter|
-    verify = drawn_letters.include?(letter)
-    if verify == true
-      drawn_letters.delete(letter)
+    index = drawn_letters.index(letter)
+    if index != nil
+      drawn_letters.delete_at(index)
     else
       return false
     end
@@ -48,4 +49,4 @@ def uses_available_letters?(test_word, drawn_letters)
   return true
 end
 
-puts uses_available_letters?("kada", ["A","D","A","C","K"])
+# puts uses_available_letters?("c", ["A","D","A","C","K"])
