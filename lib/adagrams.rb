@@ -58,31 +58,35 @@ end
 # wave-2
 def uses_available_letters?(input, letters_in_hand)
   input_as_array = input.upcase.split("") 
-  if input_as_array.length > letters_in_hand.length
+  hand_in_hash = {}
+  
+  # determines if string is longer than size of hand
+  if input_as_array.length > SIZE_OF_HAND
     return false
-  else
-    input_as_array.each do |c|
-      comparison = false
-      index = 0
-      while comparison == false
-        if letters_in_hand[index] == c
-          letters_in_hand.delete_at(index)
-          comparison = true
-        elsif index == letters_in_hand.length - 1
-          comparison = true
-        end
-        index += 1
-      end
+  end
+  
+  # converts letters_in_hand array to hash
+  letters_in_hand.each do |char|
+    if hand_in_hash.has_key?(char) == true
+      hand_in_hash[char] += 1
+    else
+      hand_in_hash[char] = 1
     end
-    if letters_in_hand.length == SIZE_OF_HAND - input_as_array.length
-      return true
+  end
+  
+  # determines if letters in string are present in hand
+  input_as_array.each do |char|    
+    if hand_in_hash.has_key?(char) == true
+      hand_in_hash[char] -= 1
     else
       return false
     end
   end
+  
+  if hand_in_hash.values.min < 0
+    return false
+  else
+    return true
+  end
 end
-# letters = ["A", "B", "C", "D", "E", "A"]
-# string = "abz"
 
-# puts uses_available_letters?(string, letters)
-# print letters
