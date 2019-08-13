@@ -12,10 +12,11 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   split = input.upcase.split("")
+  copy = letters_in_hand.dup
   
   split.each do |letter|
-    if letters_in_hand.include? (letter)
-      letters_in_hand.delete_at(letters_in_hand.index(letter))
+    if copy.include? (letter)
+      copy.delete_at(copy.index(letter))
     else
       return false
     end
@@ -54,26 +55,21 @@ def score_word(word)
   return points
 end
 
-
-#return :word and :score
 def highest_score_from(words)
-  word_score = {}
+  word_score = []
   
   words.each do |word|
-    word_score[word] = score_word(word)
+    word_score << { word: word, score: score_word(word) }
   end
   
-  max = word_score.values.max
+  max = word_score.max_by { |element| element[:score] }[:score]
+  winners = word_score.select { |element| element[:score] == max }
+  ten_char = winners.select { |element| element[:word].length == 10 }
   
-  winners = word_score.select {|k,v| v == max}
-  
-  winners.each do |key, value|
-    if key.length == 10
-      return {key => value}
-    else 
-      min = winners.min_by {|k,v| k.length}
-      return {word: min[0], score: min[1]}
-    end
+  if ten_char.length > 0
+    return ten_char.first
+  else
+    min_winners = winners.min_by { |element| element[:word].length }
+    return min_winners
   end
-  
 end
