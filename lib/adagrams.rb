@@ -61,9 +61,7 @@ def uses_available_letters?(input, letters_in_hand)
   hand_in_hash = {}
   
   # determines if string is longer than size of hand
-  if input_as_array.length > SIZE_OF_HAND
-    return false
-  end
+  return false if input_as_array.length > SIZE_OF_HAND
   
   # converts letters_in_hand array to hash
   letters_in_hand.each do |char|
@@ -83,11 +81,7 @@ def uses_available_letters?(input, letters_in_hand)
     end
   end
   
-  if hand_in_hash.values.min < 0
-    return false
-  else
-    return true
-  end
+  return hand_in_hash.values.min < 0 ? false : true
 end
 
 # wave-3
@@ -128,9 +122,9 @@ def score_word(word)
   word_as_array.each do |char|
     score += score_chart[char.to_sym]
   end
-  if word.length > 6
-    score += 8
-  end
+  
+  score += 8 if word.length > 6
+  
   return score
 end
 
