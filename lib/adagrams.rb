@@ -6,7 +6,6 @@ LETTER_POOL = {
     'X' => 1, 'Y'=> 2, 'Z'=> 1 
 }
 
-
 def draw_letters
     all_letters = []
     LETTER_POOL.each do |letter, amount|
@@ -19,12 +18,42 @@ def draw_letters
         all_letters << letters
     end
     all_letters = all_letters.flatten
-    
     # Creation of Hand ====> Create a method here so you can call it later in the program
     hand = []
     10.times do 
         hand << all_letters.sample
     end
-    return hand
-    
+    return hand  
 end
+
+p draw_letters
+
+#takes in a string (user_input) and an array of strings (letters_in_hand)
+#returns a boolean that indicates if the letters_in_hand array has the characters needed to construct the user_input 
+#if the return value is true, remove the corresponding letters in the hand
+#if the return value is false, do not remove any letters from the hand
+
+def uses_available_letters?(user_input, letters_in_hand)
+    untouched_hand = letters_in_hand.dup
+    user_input.upcase.split("").each do |letter|
+        if untouched_hand.include?(letter)
+            untouched_hand.slice!(untouched_hand.index(letter))
+        else
+            return false
+        end
+    end
+end
+
+# def uses_available_letters?(user_input, letters_in_hand)
+#     user_input.split("").each do |letter|
+#         if letters_in_hand.include?(letter)
+#             letters_in_hand.
+
+#             letters_in_hand.slice(letters_in_hand.index(letter))
+#         else 
+#             return false
+#         end
+#     end
+#     #return true
+# end
+
