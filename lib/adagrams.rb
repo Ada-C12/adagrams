@@ -120,3 +120,21 @@ def highest_score_from(words)
   winning_hash[:word] = winning_word
   return winning_hash
 end 
+
+# WAVE 5 - OPTIONAL
+#when running w/o wave-5 file, add .. to csv location ("../assets..")
+def is_in_english_dict? (input)
+  dictionary = CSV.read("/assets/dictionary-english.csv")
+  input_array = []
+  verdict = ""
+
+  input_array.push(input)
+
+  if dictionary.include?(input_array) == true
+    verdict = true
+  else 
+    verdict = false
+  end 
+  return verdict
+end 
+# puts is_in_english_dict?("emoji")
