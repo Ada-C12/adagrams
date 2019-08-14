@@ -33,20 +33,17 @@ def draw_letters
       all_letters_array << letter
     end
   end
-
   letters_in_hand = all_letters_array.sample(10)
-
 end
-
-letters_in_hand = draw_letters
 
 def uses_available_letters?(input, letters_in_hand)
   input = input.chars
-  # Make new Hash to store letters and occurence
+  # Make new Hash to store letters and occurrence
   letter_count = Hash.new(0)
   letters_in_hand.each do |letter|
     letter_count[letter] += 1
   end
+
   input.each do |letter|
     if letters_in_hand.include?(letter)
       letter_count[letter] -= 1
@@ -62,17 +59,9 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-def score_word(user_input)
-  # points = {
-  #   1 => %w(A E I O U L N R S T),
-  #   2 => %w(D G),
-  #   3 => %w(B C M P),
-  #   4 => %w(F H V W Y),
-  #   5 => %w(K),
-  #   8 => %w(J X),
-  #   10 => %w(Q Z)
-  # }
-points = {
+def score_word(word)
+  # Make new hash to store letters and point values
+  points = {
     "A" => 1,
     "B" => 3,
     "C" => 3,
@@ -99,34 +88,11 @@ points = {
     "X" => 8,
     "Y" => 4,
     "Z" => 10
-}
-
-  input_array = user_input.chars
+  }
+  input_array = word.chars
   total_points = input_array.map do |letter|
     points[letter]
   end
   return total_points.sum
 end
-#     if points.values.include?(points[letter])
-#       puts "hello"
-#       #total_points << points.key(letter)
-#     end
-#   end
-# end
-
-puts score_word("MOUSE")
-
-
-
-#puts uses_available_letters?(input, letters_in_hand)
-
-# wave three-- use hash of arrays. point = key, letters = values in an array
-# points_hash {
-#   [1 =>
-#     ["A",...]
-# }
-
-
-
-
-
+# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
