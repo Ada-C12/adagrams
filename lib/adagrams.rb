@@ -57,3 +57,51 @@ end
 #     #return true
 # end
 
+# I am making a hash that will hold the references for how many points each letter
+#is worth. 
+
+def score_word(word)
+    
+    letter_points_array = [
+        [],['A', 'E', 'I', 'O', 'U', 'L', 'N','R', 'S', 'T'],
+        ['D','G'],['B', 'C', 'M','P'],['F','H', 'V', 'W', 'Y'],
+        ['K'],[],[],['J', 'X'],[],['Q', 'Z']
+    ]
+    
+    
+    letter_points = {}
+    
+    #This is where we automated our array and turned it into a hash.
+    
+    letter_points_array.each_with_index do |letters, point|
+        letters.each do |letter|
+            letter_points[letter] = point
+        end
+    end
+    puts letter_points
+    puts word.split("")
+    
+    # This is where we add the points and iterate through the lettter_points hash.
+    score = 0
+    word.split("").each do |each_letter|
+        score += letter_points[each_letter]
+    end 
+    
+    new_word = word.split('')
+    if new_word.length > 6
+        score += 8
+    end
+    
+    return score
+    
+end 
+
+
+
+
+
+
+
+
+
+
