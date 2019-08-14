@@ -96,3 +96,5 @@ def score_word(word)
   return total_points.sum
 end
 # If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
+
+# Wave 4: use hash within score_word method to save valid words and their points
