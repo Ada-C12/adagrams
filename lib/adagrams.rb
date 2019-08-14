@@ -9,13 +9,13 @@ def draw_letters
   return letters_in_hand.sample(10)
 end
 
-# WAVE#2: Verifying user input is using the avaliable letters from the hand
-def uses_available_letters?(input, letters_in_hand)
+# WAVE#2: Verifying user input/word is using the avaliable letters from the hand
+def uses_available_letters?(word, letters_in_hand)
   hand_hash = letters_in_hand.uniq.map { |x| [x, letters_in_hand.count(x)] }.to_h
-  input_array = input.upcase.split("")
+  word_array = word.upcase.split("")
   letter_check = []
 
-  input_array.map do |letter|
+  word_array.map do |letter|
     if hand_hash[letter].class == Integer
       if hand_hash[letter] >= 1
         hand_hash[letter] -= 1
@@ -27,7 +27,50 @@ def uses_available_letters?(input, letters_in_hand)
       letter_check << "False"
     end
   end
+  return letter_check.include?("False") ? false : true
+end
 
-  puts letter_check.include?("False") ? false : true
+# WAVE#3
+def score_word(word)
+  score_chart = {
+    "A" => 1,
+    "E" => 1,
+    "I" => 1,
+    "O" => 1,
+    "U" => 1,
+    "L" => 1,
+    "N" => 1,
+    "R" => 1,
+    "S" => 1,
+    "T" => 1,
+    "D" => 2,
+    "G" => 2,
+    "B" => 3,
+    "C" => 3,
+    "M" => 3,
+    "P" => 3,
+    "F" => 4,
+    "H" => 4,
+    "V" => 4,
+    "W" => 4,
+    "Y" => 4,
+    "K" => 5,
+    "J" => 8,
+    "X" => 8,
+    "Q" => 10,
+    "Z" => 10
+  }
+  score = 0
+  word_array = word.upcase.split("")
+  print word_array
+  
+  word_array.map do |letter|
+    score += score_chart[letter]
+  end
 
+  if word_array.length == 7 || word_array.length == 8 || word_array.length == 9 || word_array.length == 10
+    score += 8
+  end
+
+  return score
 end

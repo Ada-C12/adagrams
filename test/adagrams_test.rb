@@ -69,7 +69,7 @@ describe 'Adagrams' do
     end
   end
 
-
+  # wave 3
   describe 'score_word method' do
     it 'returns an accurate numerical score according to the score chart' do
       expect(score_word("A")).must_equal 1
