@@ -1,14 +1,17 @@
+require 'csv'
+DICTIONARY = CSV.read('assets/dictionary-english.csv')
+
 def draw_letters
     letters_arr = []
     new_letters_arr = []
     letters_in_hand = []
-
+    
     LETTERS.each do |letter, qty|
         qty.times do 
             letters_arr.push(letter.to_s)
         end
     end
-        
+    
     new_letters_arr = (0..(letters_arr.length - 1)).to_a
     pluck = 10
     pluck.times do 
@@ -21,8 +24,8 @@ def draw_letters
         new_letters_arr.delete(index)
     end
     return letters_in_hand
-    end
-    
+end
+
 def uses_available_letters? (input, letters_in_hand)
     letters_in_hand_copy = []
     letters_in_hand_copy += letters_in_hand
@@ -61,8 +64,8 @@ def score_word(word)
     if word.length>=7 && word.length<=10
         score += 8
     end
-        
-return score
+    
+    return score
 end
 
 def highest_score_from(words)
@@ -77,10 +80,10 @@ def highest_score_from(words)
     end
     highest_scores = words_scores[words_scores.keys.max]
     # check length = 10 first
-
+    
     # find the shortest words
-
-
+    
+    
     highest_scores.each do |word|
         if word.length == 10
             return {word: word, score: words_scores.keys.max}
@@ -91,7 +94,7 @@ def highest_score_from(words)
     # if multiple words, return first one
 end
 
-        
+
 
 # uses_available_letters?('ABCD',["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"])
 # POINTS = 
@@ -106,3 +109,6 @@ LETTERS = {A: 9, B: 2, C: 2, D: 4, E: 12, F: 2, G: 3, H: 2, I: 9, J: 1, K: 1, L:
 
 # puts letters
 
+def is_in_english_dict?(input)
+    return DICTIONARY.include?([input.downcase]) ? true : false
+end
