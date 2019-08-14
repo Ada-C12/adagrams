@@ -58,3 +58,133 @@ def score_word(word)
   end
   return total_points
 end
+
+# def highest_score_from(words)
+#   highest_score_hash = {
+#     word: words
+#   }
+#   words.each do |object|
+#     score = score_word(object)
+#     highest_score_hash[:score => score]
+#   end
+#   p highest_score_hash
+# end
+
+def highest_score_from(words)
+  highest_score_hash = {
+    
+  }
+  score = 0
+  winning_word = ""
+  # tie_breaker_words = []
+  words.each do |object|
+    word_score = score_word(object)
+    if word_score > score
+      score = word_score
+      winning_word = object
+      # elsif word_score = score
+      #   word_length = object.chars.length
+      #   winning_word_length = winning_word.chars.length
+      #   if word_length < winning_word_length
+      #     winning_word = object
+      #   elsif word_length == 10
+      #     winning_word = object
+      #   elsif winning_word_length == 10
+      #     winning_word
+      #   end
+      # end
+      
+      # tie_breaker_words>> winning_word
+      # tie_breaker_words>> object
+    elsif word_score = score
+      winning_word = tiebreaker_length(winning_word, object) 
+      
+    end
+    # p winning_word
+    # p score
+    
+    highest_score_hash[:word] = winning_word
+    highest_score_hash[:score] = score
+    
+    
+    
+    
+    
+    #   highest_score_hash[:score => score]
+    # end
+    # p highest_score_hash
+  end
+  return highest_score_hash
+end 
+
+def tiebreaker_length (old_word, new_word)
+  p old_word
+  p new_word
+  tiebreaker_len_arr = [old_word, new_word]
+  tiebreaker_len_arr.min { |old_word, new_word| old_word.length <=> new_word.length }  
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def highest_score_from(words)
+#   highest_score_hash = {
+
+#   }
+#   score = 0
+#   winning_word = ""
+#   # tie_breaker_words = []
+#   words.each do |object|
+#     word_score = score_word(object)
+#     if word_score > score
+#       score = word_score
+#       winning_word = object
+#       # elsif word_score = score
+#       #   word_length = object.chars.length
+#       #   winning_word_length = winning_word.chars.length
+#       #   if word_length < winning_word_length
+#       #     winning_word = object
+#       #   elsif word_length == 10
+#       #     winning_word = object
+#       #   elsif winning_word_length == 10
+#       #     winning_word
+#       #   end
+#       # end
+
+#       # tie_breaker_words>> winning_word
+#       # tie_breaker_words>> object
+#     elsif word_score = score
+#       winning_word = tiebreaker_length(winning_word, object) 
+#     else
+#       score
+#     end
+
+#     highest_score_hash[:word] = winning_word
+#     highest_score_hash[:score] = score
+
+#     return highest_score_hash
+#     #   highest_score_hash[:score => score]
+#     # end
+#     # p highest_score_hash
+#   end
+
+
+#   def tiebreaker_length (old_word, new_word)
+#     tiebreaker_len_arr = [old_word, new_word]
+#     tiebreaker_len_arr.min { |old_word, new_word| old_word.length <=> new_word.length}  
+
+#   end
+
