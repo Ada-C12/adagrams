@@ -4,6 +4,7 @@
 
 # Wave 1 Problem
 require 'csv'
+require 'pry'
 
 def draw_letters ()
     alphabet = 
@@ -58,6 +59,7 @@ def draw_letters ()
         
         return your_letters
     end
+    
     
     # Wave 2 Problem
     def uses_available_letters?(input, letters_in_hand)
@@ -143,7 +145,8 @@ def draw_letters ()
     
     # Wave 5 Problem
     def is_in_english_dict?(input)
-        dictionary = (File.read("assets/dictionary-english.csv"))
+        
+        dictionary = (File.read("assets/dictionary-english.csv")).split("\n")
         
         if dictionary.include?(input)
             return true
