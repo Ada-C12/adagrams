@@ -62,22 +62,33 @@ def draw_letters
     boolean_value
   end 
 
-# # Wave 3
-# # Return the score of the given word
+# Wave 3
+# Return the score of the given word
 
-# def score_word(word)
-#   total_sum = 0
-#   score_hash = {1=> ["A", "E", "I", "0", "U", "L", "N", "R", "S", "T"], 2=> ["D", "G"], 
-#   3=> ["B", "C", "M", "P"], 4=> ["F", "H", "V", "W", "Y"], 5=> "K", 8=> ["J", "X"], 
-#   10=> ["Q", "Z"]}
-#   word.each do |letter|
-#   sum = score_hash.key(letter)
-#   # need a way to acccess the letters in the values
-#   total_sum += sum
-#   end
-# end 
+def score_word(word)
+  word = word.upcase.chars
+  sum = 0
+  total_sum = 0
 
-# puts score_word(submit)
+  score_hash = {1=> ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 2=> ["D", "G"], 
+  3=> ["B", "C", "M", "P"], 4=> ["F", "H", "V", "W", "Y"], 5=> ["K"], 8=> ["J", "X"], 
+  10=> ["Q", "Z"]}
+  
+  total_sum = 8 if word.length >= 7 
+  word.each do |letter|
+    score_hash.each do |key, value|
+      value.each do |check|
+        if check == letter
+          sum = key.to_i
+          print sum 
+          total_sum += sum
+        end
+      end
+    end
+  end
+  return total_sum
+end 
+
 
 
 
