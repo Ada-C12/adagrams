@@ -50,7 +50,7 @@ def uses_available_letters?(test_word, drawn_letters)
 end
 
 
-puts uses_available_letters?("kada", ["A","D","A","C","K"])
+# puts uses_available_letters?("kada", ["A","D","A","C","K"])
 
 
 # Wave 3
@@ -68,10 +68,24 @@ def score_word(word)
   split_word = word.split('')
   split_word = split_word.map {|letter| letter.upcase}
   
+  sum = 0
+  points = 0
   split_word.each do |letter|
-    
-    
+    score_chart.each do | key, value|
+      if value.include?(letter)
+        points = key.to_i
+      end
+    end
+  
+    sum += points
+  
   end
   
-  
+  if split_word.length > 6
+    sum += 8
+  end
+  return sum
 end
+
+# puts score_word("AEIO")
+  
