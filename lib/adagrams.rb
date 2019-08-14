@@ -82,12 +82,9 @@ def score_word(word)
       if score > highest_score
         highest_score = score
         winner = word
-        
-      elsif score == highest_score
-        if word.length == 10 && word.length != winner.length
+      elsif score == highest_score && winner.length != 10
+        if word.length == 10 || (word.length < winner.length)
           winner = word
-        elsif word.length < winner.length && winner.length != 10
-          winner = word     
         end
       end
     end
