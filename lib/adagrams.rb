@@ -37,8 +37,8 @@ def draw_letters
   
   letter_pool_array = letter_pool_array.flatten
   
-  letters = letter_pool_array.sample(10)
-  return letters
+  drawn_letters = letter_pool_array.sample(10)
+  return drawn_letters
   
 end
 
