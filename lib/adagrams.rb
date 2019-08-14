@@ -9,7 +9,7 @@ def draw_letters
   return letters.flatten.sample(10)
 end
 
-# method may change stings in letters_in_hand 
+# this method may change strings in letters_in_hand 
 def uses_available_letters?(input, letters_in_hand)
   input.each_char do |c|
     index = letters_in_hand.find_index(c)
@@ -69,3 +69,26 @@ def score_word(word)
   return total_points
 end
 
+p score_word(input)
+words = ["cat", "elephant"]
+
+# wave 4
+def highest_score_from(words)
+  winning_word = { word: nil, score: 0}
+  words.each do |word|
+    score = score_word(word) #the score of current word
+    if score > winning_word[:score]
+      winning_word[:score] = score
+      winning_word[:word] = word
+    elsif score == winning_word[:score] 
+      if word.length > winning_word[:word].length
+        next
+      end
+    end
+  end
+  return winning_word
+end
+
+
+
+p highest_score_from(words)
