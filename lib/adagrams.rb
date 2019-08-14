@@ -112,13 +112,26 @@ def highest_score_from(words)
     end
   end 
 
-  # if winners.length > 1
-  #   # winners.map do |key, value|
-  #     minletters = key.length.min
+  if winners.length > 1
+    min = 11
+    win_word = nil
+    winners.map do |key, value|
+      if key.length == 10
+        finalwinner = {"#{key}": value}
+        return finalwinner
+      elsif key.length < min
+        min = key.length
+        win_word = key
+      end
+    end
+    finalwinner = {"#{win_word}": min}
+    return finalwinner
+  end
+
   return winners
 end
 
-words = ["EEE", "III", "AAA"]
+words = ["KADA", "KADA", "KADA"]
 p highest_score_from(words)
 
 
