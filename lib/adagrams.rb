@@ -107,3 +107,37 @@ def score_word(word)
   return word_points.sum
   
 end    
+
+def highest_score_from(words)
+  # make hash of all words and their score {word => score, word => score}
+  scores_hash = {} 
+  words.each do |word|
+    scores_hash[word] = score_word(word)
+  end
+  
+  # use select to create new hash of key-value pairs that all equal max score
+  highest_score = scores_hash.values.max
+  highest_scores_hash = scores_hash.select do |word, score|
+    score == highest_score
+  end
+  
+  # tie breaking and returning correct format winner
+
+  # if there's just 1, winner
+  if highest_scores_hash.length == 1
+    return {word: highest_scores_hash.keys[0], score: highest_scores_hash.values[0]}
+  else
+    highest_scores_hash.each do |word, score|
+      if word.length == 10
+        return {word: word, score: score}
+      end
+    end
+
+    min_length = highest_scores_hash.map { |word, score| word.length }.min
+    highest_scores_hash.each do |word, score|
+      if word.length == min_length
+        return {word: word, score: score}
+      end
+    end
+  end
+end
