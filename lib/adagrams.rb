@@ -74,6 +74,35 @@ def uses_available_letters?(input, letters_in_hand)
     
 end
 
+# Wave 3 Problem
+def score_word(word)
 
+    user_word = word.downcase.split('')
+    total_score = 0
+    user_word.each do |letter|
+        case letter
+        when 'a','e','i','o','u','l','n','r','s','t'
+            total_score += 1
+        when 'd','g'
+            total_score += 2
+        when 'b','c','m','p'
+            total_score += 3
+        when 'f','h','v','w','y'
+            total_score += 4
+        when 'k'
+            total_score += 5
+        when 'j','x'
+            total_score += 8
+        when 'q','z'
+            total_score += 10
+        end
+    end
+
+    if user_word.count > 6
+        total_score += 8
+    end
+
+    return total_score
+end
 
 
