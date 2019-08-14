@@ -137,15 +137,32 @@ end
 # wave-4
 
 def highest_score_from(words)
-  highest_score = {word: "", score: 0}
+  winning_word_score = {word: "", score: 0}
+  highest_score = {word: [], score: 0}
   
-  scores = words.map do |word|
-    score_word(word)
+  # save highest score and word(s) into hash
+  words.each do |word|
+    score_of_word = score_word(word)
+    if highest_score[:score] < score_of_word
+      highest_score[:score] = score_of_word
+      highest_score[:word] = [word]
+    elsif highest_score[:score] == score_of_word
+      highest_score[:word] << word
+    end
   end
   
-  return scores.max
+  winning_word_score[:score] = highest_score[:score]
+  
+  if highest_score[:word].length == 1
+    winning_word_score[:word] = highest_score[:word][0]
+  elsif highest_score[:word].length > 1
+    if highest_score[:word].max_by{|x| x.length}.length == 10
+      winning_word_score[:word] = highest_score[:word].max_by{|x| x.length}
+    else 
+      winning_word_score[:word] = highest_score[:word].min_by{|x| x.length}
+    end
+  end
+  
+  return winning_word_score
 end
 
-words_array = ["cat", "cat", "a"]
-
-print highest_score_from(words_array)
