@@ -104,3 +104,6 @@ def highest_score_from(words)
   return winning_word
 end
 
+def is_in_english_dict?(input)
+  File.read("assets/dictionary-english.csv").split.include?(input)
+end
