@@ -7,6 +7,7 @@ require_relative '../lib/adagrams'
 # Get that nice colorized output
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+# wave 1
 describe 'Adagrams' do
   describe 'draw_letters method' do
     it 'draws ten letters from the letter pool' do
@@ -26,6 +27,7 @@ describe 'Adagrams' do
     end
   end
 
+  # wave 2
   describe 'uses_available_letters? method' do
 
     it 'returns true if the submitted letters are valid against the drawn letters' do
@@ -66,6 +68,7 @@ describe 'Adagrams' do
       expect(drawn_letters).must_equal dl_copy
     end
   end
+
 
   describe 'score_word method' do
     it 'returns an accurate numerical score according to the score chart' do

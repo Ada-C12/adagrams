@@ -1,97 +1,38 @@
-# This is our data structure (bear with us until line 80)
-pool = []
-9.times do
-  pool << "A"
+
+# This is our data structure
+pool = ["A"] * 9 + ["B"] * 2 + ["C"] * 2 + ["D"] * 4 + ["E"] * 12 + ["F"] * 2 + ["G"] * 3 + ["H"] * 2 + ["I"] * 9 + ["J"] * 1 + ["K"] * 1 + ["L"] * 4 + ["M"] * 2 + ["N"] * 6 + ["O"] * 8 + ["P"] * 2 + ["Q"] * 1 + ["R"] * 6 + ["S"] * 4 + ["T"] * 6 + ["U"] * 4 + ["V"] * 2 + ["W"] * 2 + ["X"] * 1 + ["Y"] * 2 + ["Z"] * 1
+# Saving the origianl letter pool into an constant to avoid changes
+POOL = pool
+
+# WAVE#1: Drawing a hand of 10 letters from the letter pool
+def draw_letters
+  letters_in_hand = POOL
+  return letters_in_hand.sample(10)
 end
-2.times do
-  pool << "B"
-end
-2.times do
-  pool << "C"
-end
-4.times do
-  pool << "D"
-end
-12.times do
-  pool << "E"
-end
-2.times do
-  pool << "F"
-end
-3.times do
-  pool << "G"
-end
-2.times do
-  pool << "H"
-end
-9.times do
-  pool << "I"
-end
-1.times do
-  pool << "J"
-end
-1.times do
-  pool << "K"
-end
-4.times do
-  pool << "L"
-end
-2.times do
-  pool << "M"
-end
-6.times do
-  pool << "N"
-end
-8.times do
-  pool << "O"
-end
-2.times do
-  pool << "P"
-end
-1.times do
-  pool << "Q"
-end
-6.times do
-  pool << "R"
-end
-4.times do
-  pool << "S"
-end
-6.times do
-  pool << "T"
-end
-4.times do
-  pool << "U"
-end
-2.times do
-  pool << "V"
-end
-2.times do
-  pool << "W"
-end
-1.times do
-  pool << "X"
-end
-2.times do
-  pool << "Y"
-end
-1.times do
-  pool << "Z"
+
+# WAVE#2: Verifying user input is using the avaliable letters from the hand
+def uses_available_letters?(input, letters_in_hand)
+  hand_hash = letters_in_hand.uniq.map { |x| [x, letters_in_hand.count(x)] }.to_h
+  input_array = input.upcase.split("")
+
+  input_array.map do |letter|
+    if hand_hash[letter].class == Integer && hand_hash[letter] > 0
+      hand_hash[letter] -= 1
+      return "True"
+    else
+      return "False"
+    end
+  end
 end
 
 
-# copy of original array to edit in program
-current_pool = pool
 
-# create method to draw new hand/aka letter choice
-def draw_letters(array)
-  array.sample(10)
-end
+
 
 # draw letters from current pool until pool is empty/not enough letters for next hand
-n = 1
-(current_pool.length/10).times do
-  hand_n = draw_letters(current_pool)
-  p hand_n
-  n += 1
-end
+# n = 1
+# (current_pool.length/10).times do
+#   hand_n = draw_letters(current_pool)
+#   p hand_n
+#   n += 1
+# end
