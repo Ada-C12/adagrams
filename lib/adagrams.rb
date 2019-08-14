@@ -34,9 +34,7 @@ end
 
 # Wave 2
 def uses_available_letters?(test_word, drawn_letters)
-  
-  a = drawn_letters
-  drawn_letters_2 = a
+  drawn_letters_2 = drawn_letters.dup
   input_letters = test_word.split('')
   input_letters = input_letters.map {|letter| letter.upcase}
   # binding.pry
