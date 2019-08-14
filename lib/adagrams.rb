@@ -105,5 +105,5 @@ def is_in_english_dict?(input)
     english_words.push(row[0])
   end
   
-  return english_words.include?(input)
+  return english_words.include?(input.downcase)
 end
