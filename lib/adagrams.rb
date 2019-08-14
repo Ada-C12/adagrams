@@ -1,3 +1,5 @@
+require "json"
+
 def draw_letters()
   distribution = {
     A: 9,
@@ -83,7 +85,6 @@ def score_word(word)
     when "Q", "Z"
       score += 10
     end
-    
   end
   return score
 end
@@ -106,4 +107,13 @@ def highest_score_from(words)
     winner = high_scores.min_by { |element| element.length }
   end
   return { word: winner, score: best_result[:score] }
+end
+
+# WAVE 5
+
+def is_in_english_dict?(input)
+  json_from_file = File.read('./lib/words_dictionary.json')
+  words = JSON.parse(json_from_file)
+  
+  return words.has_key?(input)
 end
