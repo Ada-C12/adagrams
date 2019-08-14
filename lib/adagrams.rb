@@ -69,9 +69,6 @@ def score_word(word)
   return total_points
 end
 
-p score_word(input)
-words = ["cat", "elephant"]
-
 # wave 4
 def highest_score_from(words)
   winning_word = { word: nil, score: 0}
@@ -89,6 +86,3 @@ def highest_score_from(words)
   return winning_word
 end
 
-
-
-p highest_score_from(words)
