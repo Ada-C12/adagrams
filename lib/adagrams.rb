@@ -31,3 +31,41 @@ def draw_letters
     end  
     
     
+    def score_word (input)
+        # create scoring hash 
+        score = { 
+            1 => ["A","E","I","O","U","L","N","R","S","T"], 
+            2 => ["D","G"], 
+            3 => ["B","C","M","P"], 
+            4 => ["F","H","V","W","Y"], 
+            5 => ["K"], 
+            8 => ["J","X"], 
+            10 => ["Q","Z"]
+        }
+        total_points = 0 
+        score.each do |points, letters|
+            
+            input.upcase.split("").each do |letter|
+                if letters.include? (letter)
+                    total_points += points
+                    
+                end 
+                
+            end 
+            
+        end 
+        if input.length >= 7 
+            total_points += 8 
+        end 
+        return total_points 
+    end 
+
+    
+    
+
+
+    
+    
+    
+    
+
