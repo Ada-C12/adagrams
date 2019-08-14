@@ -26,8 +26,9 @@ end
 def uses_available_letters?(input, letters_in_hand)
   clone_letters_in_hand = letters_in_hand.dup
   
-  # splits input into individual letters
+  # splits input into individual capital letters 
   input_array = input.split(//)
+  input_array = input_array.map { |letter| letter.upcase }
   
   if input.length > clone_letters_in_hand.length
     return false
