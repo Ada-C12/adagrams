@@ -164,7 +164,7 @@ Name this method `score_word` in `adagrams.rb`. This method should have the foll
 
 After several hands have been drawn, words have been submitted, checked, scored, and played, we want a way to find the highest scoring word. This method looks at the array of `words` and calculates which of these words has the highest score, applies any tie-breaking logic, and returns the winning word in a special data structure.
 
-Add a method called `highest_score_from words` in `adagrams.rb`. This method should have the following properties:
+Add a method called `highest_score_from` in `adagrams.rb`. This method should have the following properties:
 
 - Has one parameter: `words`, which is an array of strings
 - Returns a single hash that represents the data of a winning word and its score. The hash should have the following keys:
