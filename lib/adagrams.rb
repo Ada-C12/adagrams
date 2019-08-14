@@ -59,13 +59,64 @@ def draw_letters
         end 
         return total_points 
     end 
-
     
     
-
-
+    def highest_score_from (words)
+        scores = []
+        words.each do |word|
+            scores << score_word(word)
+        end 
+        word_score = words.zip(scores)
+        highest_score = {}
+        word_score.each do |i|
+            highest_score[i[0]] = i[1]
+        end
+        
+        
+        tie = {}
+        
+        highest_word = highest_score.max_by {|word, score| score}
+        highest_score.each do |key, value|
+            if value == highest_word[1] 
+                tie[key] = value 
+            end 
+        end 
+        
+        shortest_word = "xxxxxxxxxx"
+        tie.keys.each do |i|
+            if i.length == 10 
+                shortest_word = i
+                return {word: shortest_word, score: tie[shortest_word]}
+            elsif i.length < shortest_word.length
+                shortest_word = i
+                
+                
+            end
+            
+        end 
+        
+        
+        return {word: shortest_word, score: tie[shortest_word]}
+        
+    end
+    
+    
+ 
     
     
     
     
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
