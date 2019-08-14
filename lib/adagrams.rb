@@ -21,3 +21,51 @@ def uses_available_letters?(input, letters_in_hand)
   end
 return true
 end
+
+SCORE_CHART = [
+  {
+    letters: %w(A E I O U L N R S T),
+    value: 1
+  },
+  { 
+    letters: %w(D G),
+    value: 2
+  },
+  {
+    letters: %w(B C M P),
+    value: 3
+  },
+  {
+    letters: %w(F H V W Y),
+    value: 4
+  },
+  {
+    letters: %w(K),
+    value: 5
+  },
+  {
+    letters: %w(J K),
+    value: 8
+  },
+  {
+    letters: %w(Q Z),
+    value: 10
+  }
+]
+
+# refactor!
+def score_word(word)
+  total_points = 0
+  word.each_char do |c|
+    SCORE_CHART.each do |score|
+      if score[:letters].include?(c)
+        total_points += score[:value]
+      end
+    end
+  end
+  if word.length > 6
+    total_points += 8
+  end
+  return total_points
+end
+
