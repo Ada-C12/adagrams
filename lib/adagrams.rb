@@ -22,7 +22,7 @@ end
 # Wave two - DRAFT
 # Need to review lines 57-67, b/c failing test for returning true if the submitted letters are valid against the drawn letters
 def uses_available_letters?(input, letters_in_hand)
-  input_array = input.chars
+  input_array = input.upcase.chars
   # Checking if the input string's characters exists in the user hand 
   input_array.each do |letter|
     unless letters_in_hand.include?(letter) #adding true or false to letters_included array
@@ -33,7 +33,7 @@ def uses_available_letters?(input, letters_in_hand)
   # available in letters_in_hand
   # making a hash from letters_in_hand with letters as keys, and counts as values
   letters_hand_hash = {} #looping thru hand, counting instances of each character
-  letters_in_hand.each do |letter|
+  letters_hand_hash.each do |letter|
     found_letter = letter
     if letters_hand_hash.key?(found_letter)
       letters_hand_hash[found_letter] += 1
@@ -73,7 +73,7 @@ end
 
 # Wave 3
 def score_word(word)
-  input_array = word.chars
+  input_array = word.upcase.chars
   
   scores = []
   # Calculating the score for each letter in word 
@@ -110,14 +110,13 @@ def score_word(word)
   
 end 
 
-# # wave 3 & 4 
-words = [] #will contain 3 words 
-word_scores = [] #contains score for each word
-summary = [] #contains a hash for each word, the hash contains the word and score
-3.times do 
-  puts "Please enter a word: "
-  word = gets.chomp.upcase 
-  words.push(word) #ask for a word and add it to list
+# Wave 4
+def highest_score_from(words)
+  played_words = [] #will contain 3 words 
+  word_scores = [] #contains score for each word
+  summary = [] #contains a hash for each word, the hash contains the word and score
+  
+  played_words.push(word) #ask for a word and add it to list
   word_letters = word.chars #convert string to array of characters
   word_length = word_letters.length #count the length of characters 
   final_score = score_word(word) #calculate the score for each word 
@@ -127,7 +126,13 @@ summary = [] #contains a hash for each word, the hash contains the word and scor
   tracker[:length] = word_length
   tracker[:score] = final_score
   summary.push(tracker)
+  return played_words
 end 
+
+
+
+
+
 
 
 
