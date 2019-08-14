@@ -133,3 +133,19 @@ def score_word(word)
   end
   return score
 end
+
+# wave-4
+
+def highest_score_from(words)
+  highest_score = {word: "", score: 0}
+  
+  scores = words.map do |word|
+    score_word(word)
+  end
+  
+  return scores.max
+end
+
+words_array = ["cat", "cat", "a"]
+
+print highest_score_from(words_array)
