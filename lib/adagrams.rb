@@ -61,32 +61,62 @@ def uses_available_letters?(input, letters_in_hand)
   end
   return true
 end
-#   new_array = []
 
-#   input.each do |letter|
-#     if letters_in_hand.include?(letter)
-#     letters_in_hand.delete_at(letters_in_hand.index(letter))
-#     new_array << letter
-#     else
-#       return false
-#       break
+def score_word(user_input)
+  # points = {
+  #   1 => %w(A E I O U L N R S T),
+  #   2 => %w(D G),
+  #   3 => %w(B C M P),
+  #   4 => %w(F H V W Y),
+  #   5 => %w(K),
+  #   8 => %w(J X),
+  #   10 => %w(Q Z)
+  # }
+points = {
+    "A" => 1,
+    "B" => 3,
+    "C" => 3,
+    "D" => 2,
+    "E" => 1,
+    "F" => 4,
+    "G" => 2,
+    "H" => 4,
+    "I" => 1,
+    "J" => 8,
+    "K" => 5,
+    "L" => 1,
+    "M" => 3,
+    "N" => 1,
+    "O" => 1,
+    "P" => 3,
+    "Q" => 10,
+    "R" => 1,
+    "S" => 1,
+    "T" => 1,
+    "U" => 1,
+    "V" => 4,
+    "W" => 4,
+    "X" => 8,
+    "Y" => 4,
+    "Z" => 10
+}
+
+  input_array = user_input.chars
+  total_points = input_array.map do |letter|
+    points[letter]
+  end
+  return total_points.sum
+end
+#     if points.values.include?(points[letter])
+#       puts "hello"
+#       #total_points << points.key(letter)
 #     end
 #   end
-#   letters_in_hand = new_array + letters_in_hand
-#     p new_array
-#     p letters_in_hand
-#     return true
 # end
 
+puts score_word("MOUSE")
 
 
-# We can't alter the hand.
-# Make a new array, move each matching letter into it, move rest into it, have letters_in_hand point to that array after input has been iterated through
-# y << x.delete('b')
-
-# OR put letters_in_hand into hash w/ occurrence as value with += 1
-# each iteration if matches hash["A"] -= 1
-# if <0 return false
 
 #puts uses_available_letters?(input, letters_in_hand)
 
