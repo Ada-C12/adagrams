@@ -28,6 +28,7 @@ def draw_letters
     {letter: "X", weight: 1, score: 8},
     {letter: "Y", weight: 2, score: 4},
     {letter: "Z", weight: 1, score: 10}]
+
     tile_set = []
 
     # extracts letter and score keys and puts them in array called raw_tiles
@@ -41,31 +42,25 @@ def draw_letters
     hand = tile_set.sample(10)
     return hand   
   end
+
   #Official hand
 
-  hand = draw_letters
+  letters_in_hand = draw_letters
 
+  #Wave 2
 
-#   #Wave 2
-#   #User submits word to be tested
-#   puts "\n\nPlease provide a word:"
-#   word = gets.chomp.upcase
+  #Word is changed to array so we can see if the word is an anagram of the hand
 
-#   #Word is changed to array so we can see if the word is an anagram of the hand
-#   submit = word.chars
-#   print submit
-
-#   def uses_available_letters?(input, letters_in_hand)
-#     boolean_value = true
-#     input.each do |letter|
-#       if input.count(letter) > letters_in_hand.count(letter) 
-#         boolean_value = false
-#       end 
-#     end
-#     boolean_value
-#   end 
-
-# puts uses_available_letters?(submit, hand)
+  def uses_available_letters?(input, letters_in_hand)
+    input = input.upcase.chars
+    boolean_value = true
+    input.each do |letter|
+      if input.count(letter) > letters_in_hand.count(letter) 
+        boolean_value = false
+      end 
+    end
+    boolean_value
+  end 
 
 # # Wave 3
 # # Return the score of the given word
