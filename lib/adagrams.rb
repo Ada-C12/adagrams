@@ -1,56 +1,56 @@
-# Wave 1
-def draw_letters
-  letter_pool = {
-    "9" => ["A", "I"], 
-    "4" => ["D", "L", "S", "U"], 
-    "2" => ["B", "C", "F", "H", "M", "P", "V", "W", "Y"],  
-    "12" => ["E"],  
-    "3" => ["G",],
-    "1" => ["J", "K", "Q", "X", "Z"],
-    "6" => ["N", "R", "T"],
-    "8" => ["O"],
-  }
+# # Wave 1
+# def draw_letters
+#   letter_pool = {
+#     "9" => ["A", "I"], 
+#     "4" => ["D", "L", "S", "U"], 
+#     "2" => ["B", "C", "F", "H", "M", "P", "V", "W", "Y"],  
+#     "12" => ["E"],  
+#     "3" => ["G",],
+#     "1" => ["J", "K", "Q", "X", "Z"],
+#     "6" => ["N", "R", "T"],
+#     "8" => ["O"],
+#   }
   
-  letters = []
+#   letters = []
   
-  letter_pool.each do |key, value|
-    key_i = key.to_i
-    key_i.times do
-      value.each do |string|
-        letters << string
-      end
-    end
-  end
+#   letter_pool.each do |key, value|
+#     key_i = key.to_i
+#     key_i.times do
+#       value.each do |string|
+#         letters << string
+#       end
+#     end
+#   end
   
-  generate = []
-  10.times do
-    generate << letters.shuffle.last
-    letters.pop
-  end
-  return generate
-end
+#   generate = []
+#   10.times do
+#     generate << letters.shuffle.last
+#     letters.pop
+#   end
+#   return generate
+# end
 
-# require 'pry'
+# # require 'pry'
 
-# Wave 2
-def uses_available_letters?(test_word, drawn_letters)
-  drawn_letters_2 = drawn_letters.dup
-  input_letters = test_word.split('')
-  input_letters = input_letters.map {|letter| letter.upcase}
-  # binding.pry
-  input_letters.each do |letter|
-    index = drawn_letters_2.index(letter)
-    if index != nil
-      drawn_letters_2.delete_at(index)
-    else
-      return false
-    end
-  end
-  return true
-end
+# # Wave 2
+# def uses_available_letters?(test_word, drawn_letters)
+#   drawn_letters_2 = drawn_letters.dup
+#   input_letters = test_word.split('')
+#   input_letters = input_letters.map {|letter| letter.upcase}
+#   # binding.pry
+#   input_letters.each do |letter|
+#     index = drawn_letters_2.index(letter)
+#     if index != nil
+#       drawn_letters_2.delete_at(index)
+#     else
+#       return false
+#     end
+#   end
+#   return true
+# end
 
 
-# puts uses_available_letters?("kada", ["A","D","A","C","K"])
+# # puts uses_available_letters?("kada", ["A","D","A","C","K"])
 
 
 # Wave 3
@@ -87,5 +87,43 @@ def score_word(word)
   return sum
 end
 
-# puts score_word("AEIO")
+# # puts score_word("AEIO")
   
+# Wave 4
+# require 'pry'
+
+def highest_score_from(words)
+  scores = Hash.new
+  words.each do |word|
+    score = score_word(word)
+    # binding.pry
+    scores[word] = score
+  end
+  
+  
+  max = scores.values.max
+
+  winners = Array.new
+  winner = Hash.new
+  scores.map do |key,value|
+    if value == max
+      winner = {"#{key}": max}
+      winners << winner
+    end
+  end 
+
+  # if winners.length > 1
+  #   # winners.map do |key, value|
+  #     minletters = key.length.min
+  return winners
+end
+
+words = ["EEE", "III", "AAA"]
+p highest_score_from(words)
+
+
+
+
+# return winner
+
+# end
