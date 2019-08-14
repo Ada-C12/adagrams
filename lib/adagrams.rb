@@ -1,4 +1,5 @@
-# Wave 1 - 10 letters (each letter is a string) for players hand
+require 'csv'
+
 def draw_letters
   letters = {
     "A" => 9,
@@ -42,31 +43,26 @@ def draw_letters
     end
   end
 
-  puts "HERE THE HAND"
-  puts hand
   return hand
 end 
-user_hand = draw_letters
 
-# Wave 2 - DOUBLE CHECK RETURN METHOD
-puts "Give me a word"
-word = gets.chomp.upcase
-
-def uses_available_letters(input, letters_in_hand)
-  word_array = input.split("")
+def uses_available_letters?(input, letters_in_hand)
+  copy_of_hand = letters_in_hand.dup
+  word_array = input.upcase.split("")
+  result = nil
 
   word_array.each do |letter|
-    if letters_in_hand.include?(letter) == true
-      letters_in_hand.slice!(letters_in_hand.index(letter))
-      puts true
+    if copy_of_hand.include?(letter) == true
+      copy_of_hand.slice!(copy_of_hand.index(letter))
+      result = true
     else 
-      puts false
+      result = false
+      break
     end 
-  end 
+  end
+  return result
 end
-# puts uses_available_letters(word, user_hand)
 
-# Wave 3 
 def score_word(word)
   score_chart = {
     1 => ["A", "E", "I", "O", "L", "N", "R", "S", "T"],
@@ -84,45 +80,43 @@ def score_word(word)
     score = score_chart.find {|key, values|
       values.include?(letter)
     }.first
-    score_total = score_total + score
+    score_total += score
   end 
   if word.length > 6
-    score_total = score_total + 8
+    score_total += 8
   end 
   return score_total
 end
-# score_word(word)
 
-#wave 4 
 def highest_score_from(words)
+  winning_hash = {}
   final_scores = {}
-  max_words = []
+  winning_words = []
 
   words.each do |entry|
     final_scores[entry] = score_word(entry)
   end 
   scores_only = final_scores.values
-  puts scores_only.max
-  puts winning_word = final_scores.key(scores_only.max)
+
   
   final_scores.each do |key, value|
     if value == scores_only.max
-      max_words.push(key)
+      winning_words.push(key)
     end 
   end 
-  puts max_words
-  
+
+  winning_word = nil
+  sorted_words = winning_words.sort_by(&:length)
+  sorted_words.each do |word|
+    if word.length == 10
+      winning_word = word
+      break
+    else
+      winning_word = sorted_words.first
+    end
+  end
+
+  winning_hash[:score] = scores_only.max
+  winning_hash[:word] = winning_word
+  return winning_hash
 end 
-highest_score_from(["rage", "dog", "at",])
-
-# rage - 5
-# dog - 5
-# at - 2
-# bed - 5
-
-# then group by score
-# 4: bed
-# 2: at
-# 5: rage, dog
-
-# then compare word lengths of each wrd in the group
