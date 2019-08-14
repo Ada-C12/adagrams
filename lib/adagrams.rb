@@ -67,25 +67,22 @@ def highest_score_from(words)
     max_score_index.each do |i| 
       best_score_words << words[i]   
       best_score_words_length << words[i].length
-    end  
-    if best_score_words_length.include?(10) == false
-        return shortest_word = best_score_words.min
-      elsif best_score_words_length.include?(10) == true
-          if best_score_words_length.uniq == best_score_words_length 
-            return best_score_words 
-          else   
-            return best_score_words.index(best_score_words_length.index(10))
-          end
+    end
+    if best_score_words_length.include?(10)  #both words have same max score and one word has 10 letters
+    winning_index = best_score_words_length.index(10)
+    return winning_word = {
+      word: best_score_words[winning_index],
+      score: max_score
+    } 
+    # if tie scores, but none have length 10
+    else 
+          return winning_word = { 
+            word: best_score_words.min { |a, b| a.length <=> b.length },
+            score: max_score
+          } 
       end 
   end
 end
-# In the case of tie in scores, use these tie-breaking rules:
-# prefer the word with the fewest letters...
-# ...unless one word has 10 letters. If the top score is tied between multiple words and one is 10 letters long, choose the one with 10 letters over the one with fewer tiles
-# If the there are multiple words that are the same score and the same length, pick the first one in the supplied list 
 
-
-#example = ["dog, "catherine"]
-#scores = [5, 5]
 
 
