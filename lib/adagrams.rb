@@ -1,4 +1,4 @@
-LETTER_POOL = {A: 9,	N: 6, B: 2,	O: 8, C: 2,	P: 2, D: 4,	Q: 1, E: 12, R: 6, F: 2, S: 4, G: 3,	T: 6, H: 2,	U: 4, I: 9,	V: 2, J: 1,	W: 2, K: 1,	X: 1, L: 4,	Y: 2, M: 2, Z: 1}
+LETTER_POOL = {A: 9, N: 6, B: 2, O: 8, C: 2, P: 2, D: 4, Q: 1, E: 12, R: 6, F: 2, S: 4, G: 3,	T: 6, H: 2,	U: 4, I: 9,	V: 2, J: 1,	W: 2, K: 1,	X: 1, L: 4,	Y: 2, M: 2, Z: 1}
 
 
 def draw_letters 
@@ -11,6 +11,7 @@ end
 
 # this method may change strings in letters_in_hand 
 def uses_available_letters?(input, letters_in_hand)
+  letters_in_hand = letters_in_hand.clone
   input.each_char do |c|
     index = letters_in_hand.find_index(c)
     if index.nil?
@@ -44,7 +45,7 @@ SCORE_CHART = [
     value: 5
   },
   {
-    letters: %w(J K),
+    letters: %w(J X),
     value: 8
   },
   {
@@ -56,7 +57,7 @@ SCORE_CHART = [
 # refactor!
 def score_word(word)
   total_points = 0
-  word.each_char do |c|
+  word.upcase.each_char do |c|
     SCORE_CHART.each do |score|
       if score[:letters].include?(c)
         total_points += score[:value]
@@ -70,19 +71,30 @@ def score_word(word)
 end
 
 # wave 4
+
+def break_tie(word_1, word_2)
+  length_1 = word_1[:word].length
+  length_2 = word_2[:word].length
+
+  return word_1 if length_1 == length_2
+  return word_1 if length_1 == 10
+  return word_2 if length_2 == 10
+  return length_1 < length_2 ? word_1 : word_2
+end
+
 def highest_score_from(words)
   winning_word = { word: nil, score: 0}
   words.each do |word|
     score = score_word(word) #the score of current word
+
     if score > winning_word[:score]
       winning_word[:score] = score
       winning_word[:word] = word
     elsif score == winning_word[:score] 
-      if word.length > winning_word[:word].length
-        next
-      end
+      winning_word = break_tie(winning_word, { word: word, score: score })
     end
   end
+
   return winning_word
 end
 
