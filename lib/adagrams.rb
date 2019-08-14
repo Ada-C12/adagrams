@@ -2,10 +2,10 @@
 # Monday, August 12th, 2019
 # Week 2, Adagram Project
 
-# wave-1
-
+require 'csv'
 SIZE_OF_HAND = 10
 
+# wave-1
 def draw_letters
   letter_dist = {  # given distribution of letters 
     A: 9,
@@ -129,7 +129,6 @@ def score_word(word)
 end
 
 # wave-4
-
 def highest_score_from(words)
   winning_word_score = {word: "", score: 0}
   highest_score = {word: [], score: 0}
@@ -161,3 +160,12 @@ def highest_score_from(words)
   return winning_word_score
 end
 
+# wave-5
+# checking to see if word input is a real word
+def is_in_english_dict?(input)
+  CSV.open("assets/dictionary-english.csv").each do |word|
+    return true if input == word[0]
+  end
+  
+  return false
+end
