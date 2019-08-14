@@ -67,4 +67,13 @@ def score_word(word)
     "10" => ["Q", "Z"]
   }
   
+  split_word = word.split('')
+  split_word = split_word.map {|letter| letter.upcase}
+  
+  split_word.each do |letter|
+    
+    
+  end
+  
+  
 end
