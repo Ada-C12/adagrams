@@ -54,10 +54,19 @@ print "Please enter a word: "
 input = gets.chomp.upcase
 input_array = input.chars
 
+letters_included = []
+
 input_array.each do |letter|
   if letters_in_hand.include?(letter) 
-    puts true
+    letters_included << "true"
   else 
-    puts false
+    letters_included << "false"
   end
 end 
+
+if letters_included.include?("false")
+  puts "doesn't pass"
+end
+
+input_array.each do |letter|
+  
