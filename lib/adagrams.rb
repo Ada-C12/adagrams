@@ -153,6 +153,7 @@ def highest_score_from(words)
   
   winning_word_score[:score] = highest_score[:score]
   
+  # determines winning word in case of score tie
   if highest_score[:word].length == 1
     winning_word_score[:word] = highest_score[:word][0]
   elsif highest_score[:word].length > 1
