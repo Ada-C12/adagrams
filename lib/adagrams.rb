@@ -1,4 +1,4 @@
-require "json"
+# require "csv"
 
 def draw_letters()
   distribution = {
@@ -91,29 +91,28 @@ end
 
 # WAVE 4
 def highest_score_from(words)
-  results =  words.map {|word| { word: word, score: score_word(word)} }
-  best_result = results.max_by { |obj| obj[:score]}
-  high_scores = []
-  results.each do |obj|  
-    if obj[:score] == best_result[:score] 
-      high_scores << obj[:word]
-    end
-  end
+  # map each word and score as key value pairs in hashes in an array called results
+  results =  words.map { |word| { word: word, score: score_word(word)} }
+  best_result = results.max_by { |obj| obj[:score] }
   
-  winner = high_scores.select { |element| element.length == 10}
-  if !winner.empty?
-    winner = winner[0]
-  else
-    winner = high_scores.min_by { |element| element.length }
-  end
+  high_scores = []
+  results.each { |obj| high_scores << obj[:word] if obj[:score] == best_result[:score] }
+
+  # save words with length of 10 to winner array
+  winner = high_scores.select { |element| element.length == 10 }
+  # if there are words with length of 10, save first word to winner variable
+  # if there are no words with length of 10, save first, shortest word to winner variable 
+  winner = !winner.empty? ? winner[0] : high_scores.min_by { |element| element.length }
+
   return { word: winner, score: best_result[:score] }
 end
 
 # WAVE 5
 
 def is_in_english_dict?(input)
-  json_from_file = File.read('./lib/words_dictionary.json')
-  words = JSON.parse(json_from_file)
-  
-  return words.has_key?(input)
+  csv_from_file = File.read('../assets/dictionary-english.csv')
+  return csv_from_file.include? input
 end
+
+
+p is_in_english_dict?('zoolander')
