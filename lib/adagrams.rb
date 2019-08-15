@@ -1,4 +1,4 @@
-
+require 'pry'
 # Wave 1
 
 def draw_letters
@@ -31,6 +31,7 @@ def draw_letters
     Z: 1
   }
   
+  # Put quantity of each bank of letters in an arry
   array_letters = quantity_by_letter.map do |letter, quantity|
     letter.to_s * quantity
   end
@@ -38,6 +39,7 @@ def draw_letters
   array_letters = array_letters.join("")
   array_letters = array_letters.split('')
   
+  # Create hand for the user
   array_hand = array_letters.sample(10)
   
   return array_hand
@@ -45,10 +47,10 @@ def draw_letters
 end
 
 # Wave 2
-
+# A method that will return true if user enters same letters in hand, else false
 def uses_available_letters?(user_input_word, letters_in_hand)
+  # Create array of user input - make uppercase
   user_input_array = user_input_word.upcase.split("")
-  # remainder_hand = letters_in_hand
   
   hand_hash = Hash.new(0)
   input_hash = Hash.new(0)
@@ -107,14 +109,17 @@ def score_word(word)
     Z: 10
   }
   
+  # Make user input into an array (all uppercase)
   word = word.upcase.split("")
   
   score = 0
   
+  # Look up each character for score value
   word.each do |character|
     score += values_by_letter[character.to_sym]
   end
   
+  # Add points for long words
   if word.length >= 7
     score += 8
   else
@@ -127,13 +132,57 @@ end
 
 # Wave 4
 
-def highest_score_from_words(words)
+# HALLIE'S
+def highest_score_from(words)
+  
+  # Create a hash from words array with word as key and score as value
   scores_by_word = {}
   words.each do |word|
     scores_by_word[word] = score_word(word)
   end
   
-  p scores_by_word
+  # Stores the highest scoring word
+  high_score_hash = {
+    word: "",
+    score: 0
+  }
+  
+  # Find highest score in the hash and populate hash
+  highest_score = scores_by_word.max_by { |word, score| score }
+  
+  high_score_hash[:word] = highest_score[0]
+  high_score_hash[:score] = highest_score[1]
+  
+  # TIES
+  tied_words = []
+  
+  # If any word in the word array matches highest score, add to tied_words array
+  scores_by_word.each do |word, score|
+    if score == highest_score[1]
+      tied_words << word
+    end
+  end
+  
+  # Establish that there ARE ties
+  if tied_words.length > 1
+    
+    # Take first word that has 10 letters, if any.
+    tied_words.each do |word|
+      if word.split("").length == 10
+        high_score_hash[:word] = word
+        high_score_hash[:score] = score_word(word)
+        return high_score_hash
+      end
+    end
+  end
+  
+  # Take the smallest word in the tied_words array
+  if tied_words.length > 1
+    smallest_word = tied_words.min_by { |x| x.length } 
+    high_score_hash[:word] = smallest_word
+    high_score_hash[:score] = score_word(smallest_word)
+    return high_score_hash
+  end
+  
+  return high_score_hash
 end
-
-# We'll create a hash and we'll use max_by score. 
