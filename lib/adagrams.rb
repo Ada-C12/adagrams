@@ -1,15 +1,14 @@
 # This is our data structure
 pool = ["A"] * 9 + ["B"] * 2 + ["C"] * 2 + ["D"] * 4 + ["E"] * 12 + ["F"] * 2 + ["G"] * 3 + ["H"] * 2 + ["I"] * 9 + ["J"] * 1 + ["K"] * 1 + ["L"] * 4 + ["M"] * 2 + ["N"] * 6 + ["O"] * 8 + ["P"] * 2 + ["Q"] * 1 + ["R"] * 6 + ["S"] * 4 + ["T"] * 6 + ["U"] * 4 + ["V"] * 2 + ["W"] * 2 + ["X"] * 1 + ["Y"] * 2 + ["Z"] * 1
-# Saving the pool into an constant to avoid changes on the origianl
 POOL = pool
 
-# WAVE#1: Drawing a hand of 10 letters from the letter pool
+# WAVE#1
 def draw_letters
   letters_in_hand = POOL
   return letters_in_hand.sample(10)
 end
 
-# WAVE#2: Verifying user input/word is using the avaliable letters from the hand
+# WAVE#2:
 def uses_available_letters?(word, letters_in_hand)
   hand_hash = letters_in_hand.uniq.map { |x| [x, letters_in_hand.count(x)] }.to_h
   word_array = word.upcase.split("")
@@ -87,16 +86,7 @@ def highest_score_from(words)
   words_with_scores = words.zip(scores)
   winning_words_with_scores = words_with_scores.select {| word, score | score == highest_score }
   winning_words = winning_words_with_scores.map {| word, score| word }
-  # scores.each do |score|
-    # p score
-    # p words[scores.index(scores.max)]
 
-    # if scores.max >= highest_score
-    #   winning_words << words[scores.index(scores.max)] 
-    #   scores.delete_at(scores.index(scores.max))
-    #   words.delete_at(scores.index(scores.max)-1)
-    # end
-  # end
   winning_words.each do |word|
     if word.length == 10
       winner = word
