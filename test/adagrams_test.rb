@@ -178,4 +178,20 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+  describe 'is_in_english_dict method' do
+  
+    it 'actual word is recognized by English dictionary' do
+      drawn_letters = ['T', 'H', 'E', 'A', 'R', 'C', 'H', 'I', 'C', 'X']
+      test_word = 'THEARCHIC'
+      value = is_in_english_dict?(test_word)
+      expect(value).must_equal true
+    end
+
+    it 'non-word word is not recognized by English dictionary ' do
+      drawn_letters = ['T', 'H', 'E', 'A', 'R', 'C', 'H', 'I', 'C', 'X']
+      test_word = 'ARCHIC'
+      value = is_in_english_dict?(test_word)
+      expect(value).must_equal false
+    end
+  end
 end

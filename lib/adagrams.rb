@@ -1,4 +1,6 @@
 require 'pry'
+# require_relative '../assets/dictionary-english.csv' #for wave 5 
+
 # wave 1
 
 # draw_letters includes letter library due to scope since method is instructed to not require parameters
@@ -150,4 +152,20 @@ def highest_score_from (words)
 
 return winning_hash
 
+end
+
+# wave 5
+
+# checks to see if input is in English dictionary
+def is_in_english_dict? (input) 
+  path = '/Users/kelseykrippaehne/Documents/Ada/hw/adagrams/lib/dictionary-english.csv' # deliberate absolute path
+  lower_case_input = input.downcase
+  File.open(path) do |file|
+    whole_dictionary = file.readlines
+    if whole_dictionary.include? (lower_case_input +"\n")
+      return true
+    else
+      return false
+    end
+  end
 end
