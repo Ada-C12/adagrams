@@ -75,44 +75,20 @@ end
 
 def score_word(word)
   
-  points_hash = {
-  1 => %w[A E I O U L N R S T],
-  2 => %w[D G],
-  3 => %w[B C M P],
-  4 => %w[F H V W Y],
-  5 => %w[K],
-  8 => %w[J X],
-  10 => %w[Q Z]
-}
-
-# points_hash = {
-#   1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
-#   2 => ["D", "G"],
-#   3 => ["B", "C", "M", "P"],
-#   4 => ["F", "H", "V", "W", "Y"],
-#   5 => ["K"],
-#   8 => ["J", "X"],
-#   10 => ["Q", "Z"]
-# } # we could swap this so that letters are keys and points value
-
-word_array = word.upcase.split("")
-
-word_points = word_array.map do |letter|
-  points_variable = 0 # if we swap, find the value of a given key - make sure to keep a zero
-  points_hash.each do |points, letter_category| # could it be a different enumerable?
-    if letter_category.include? letter
-      points_variable = points
-    end
+  letter_pool_hash = return_letter_pool_hash
+  
+  word_array = word.upcase.split("")
+  
+  word_points = word_array.map do |letter|
+    letter_pool_hash[letter][:number_of_points]
   end
-  points_variable
-end
-
-if word_array.length >= 7 
-  word_points << 8
-end
-
-return word_points.sum
-
+  
+  if word_array.length >= 7 
+    word_points << 8
+  end
+  
+  return word_points.sum
+  
 end    
 
 def highest_score_from(words)
