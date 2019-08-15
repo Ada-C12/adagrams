@@ -80,7 +80,6 @@ def score_word(word)
 end
 
 #wave_4
-
 def tie_breaker(old_word, new_word)
   return old_word if old_word.length == 10
   return new_word if new_word.length == 10
