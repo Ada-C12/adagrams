@@ -1,5 +1,6 @@
 require_relative 'lib/adagrams'
 
+
 def display_welcome_message
   puts "Welcome to Adagrams!"
   puts "Let's draw 10 letters from the letter pool..."
@@ -16,3 +17,6 @@ def run_game
 end
 
 run_game
+# display_drawn_letters(["a", "b", "e"])
+
+# draw_letters
