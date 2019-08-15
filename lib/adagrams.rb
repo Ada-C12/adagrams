@@ -29,17 +29,26 @@ def uses_available_letters?(input, letters_in_hand)
   input_array = input.upcase.chars
   
   # Check if the input string's characters exist in the user hand 
+  
+  # Julia's note: the "unless" statement below was formerly referencing
+  # input_array and had "return true" on the second-to-last line. 
+  # The "return true" happened outside the "unless" statement, so the 
+  # block was always returning true.   
   input_array.each do |letter|
     unless letters_in_hand.include?(letter) 
       return false
     end
   end 
   
-  # Checking if the input string's characters do not exceed the amount of characters 
+  # Check if the input string's characters do not exceed the amount of characters 
   # available in letters_in_hand
-  # making a hash from letters_in_hand with letters as keys, and counts as values
-  letters_hand_hash = {} #looping thru hand, counting instances of each character
-  letters_in_hand.each do |letter| # originally letters_hand_hash, which is currently empty
+  # Making a hash from letters_in_hand with letters as keys, and counts as values
+  
+  # Julia's note: the "each" method below was originally being called on 
+  # the (empty) letters_in_hand hash so it wasn't producing the desired results.
+  letters_hand_hash = {} 
+  letters_in_hand.each do |letter| #looping thru hand, counting instances of each character
+    
     found_letter = letter
     if letters_hand_hash.key?(found_letter)
       letters_hand_hash[found_letter] += 1
@@ -60,10 +69,15 @@ def uses_available_letters?(input, letters_in_hand)
   end 
   
   # comparing input_hash to hand_hash
+  
+  # Julia's note: we formerly had "if hand_count <= count", which was saying 
+  # "if the count of the letter in our hand is less than the count of the letter
+  # in our word, go on to the next element" ... but that's the opposite of what we
+  # wanted. We only want to proceed if the count of the letter in our hand is 
+  # more than (or equal to) to the count of the letter in our word. 
   input_hash.each do |letter, count|
     if letters_hand_hash.key?(letter)
       hand_count = letters_hand_hash[letter]
-      
       if hand_count >= count
         next
       else
@@ -74,9 +88,6 @@ def uses_available_letters?(input, letters_in_hand)
   return true 
   
 end 
-
-# result = uses_available_letters?(input, draw_letters)
-# p result
 
 # Wave 3
 def score_word(word)
