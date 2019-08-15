@@ -1,4 +1,4 @@
-# require "csv"
+require 'csv'
 
 def draw_letters()
   distribution = {
@@ -32,44 +32,49 @@ def draw_letters()
   
   # WAVE 1
   
+  # convert distribution hash to letters array with all available letters
   letters = []
   distribution.each do |letter, quantity|
     quantity.times { letters << letter.to_s }
   end
   
-  strings = []
+  # push 10 random letters to strings array, removing letter from letters array each time to prevent repitition
+  drawn_letters = []
   10.times do
     letters.shuffle!
-    strings << letters.pop
+    drawn_letters << letters.pop
   end
   
-  return strings
+  return drawn_letters
 end
 
 # WAVE 2
 def uses_available_letters?(input, letters_in_hand)
   current_letters_in_hand = letters_in_hand.dup
-  # split user input into array of chars
+  # split user input into array of chararacters
   characters = input.upcase.split('')
+  # for each character, save index number to index variable
   characters.each do |char|
     index = current_letters_in_hand.find_index(char)
+    # if index number is truthy, delete element at index
     if index
       current_letters_in_hand.delete_at(index)
+      # if index number is falsey, return false
     else 
       return false
     end
   end
-  # letters_in_hand = current_letters_in_hand
+  # will return true if all indices are accounted for
   return true
 end
 
 # WAVE 3
 def score_word(word)
-  characters = word.split('')
-  # give additional 8 points for word if its length is 7 to 10
+  characters = word.upcase.split('')
+  # if score length is greater than or equal to 7, score gains additional 8 points for word
   score = (characters.length >= 7) ? 8 : 0
   characters.each do |letter|
-    case letter.upcase
+    case letter
     when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
       score += 1
     when "D", "G"
@@ -91,28 +96,27 @@ end
 
 # WAVE 4
 def highest_score_from(words)
-  # map each word and score as key value pairs in hashes in an array called results
+  # map each word and score as key value pairs to an array (named results) of hashes
   results =  words.map { |word| { word: word, score: score_word(word)} }
   best_result = results.max_by { |obj| obj[:score] }
   
   high_scores = []
   results.each { |obj| high_scores << obj[:word] if obj[:score] == best_result[:score] }
-
+  
   # save words with length of 10 to winner array
   winner = high_scores.select { |element| element.length == 10 }
-  # if there are words with length of 10, save first word to winner variable
-  # if there are no words with length of 10, save first, shortest word to winner variable 
-  winner = !winner.empty? ? winner[0] : high_scores.min_by { |element| element.length }
-
+  
+  # if there are no words with length of 10, assign first, shortest word to winner variable 
+  # if there are words with length of 10, assign first word to winner variable
+  winner = winner.empty? ? high_scores.min_by { |element| element.length } : winner[0]
+  
   return { word: winner, score: best_result[:score] }
 end
 
 # WAVE 5
 
 def is_in_english_dict?(input)
-  csv_from_file = File.read('../assets/dictionary-english.csv')
+  csv_from_file = CSV.read('assets/dictionary-english.csv').flatten
+
   return csv_from_file.include? input
 end
-
-
-p is_in_english_dict?('zoolander')
