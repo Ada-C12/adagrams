@@ -1,3 +1,4 @@
+require 'pry'
 def draw_letters
   all_letters_hash = {
     "A" => 9,
@@ -25,7 +26,7 @@ def draw_letters
     "W" => 2,
     "X" => 1,
     "Y" => 2,
-    "Z" => 1
+    "Z" => 1,
   }
   all_letters_array = Array.new
   all_letters_hash.each do |letter, number|
@@ -38,12 +39,13 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
   input = input.chars
-  # Make new Hash to store letters and occurrence
+  # Make new hash to store letters and occurrence
   letter_count = Hash.new(0)
   letters_in_hand.each do |letter|
     letter_count[letter] += 1
   end
 
+  # Check the hand array against the available letters hash
   input.each do |letter|
     if letters_in_hand.include?(letter)
       letter_count[letter] -= 1
@@ -89,12 +91,67 @@ def score_word(word)
     "Y" => 4,
     "Z" => 10
   }
-  input_array = word.chars
+  input_array = word.upcase.chars
   total_points = input_array.map do |letter|
     points[letter]
   end
+
+  if input_array.size >= 7 && input_array.size < 11
+    return total_points.sum + 8
+  end
+  # if total_points.empty?
+  #   return 0
+  # end
   return total_points.sum
 end
-# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
 
-# Wave 4: use hash within score_word method to save valid words and their points
+def highest_score_from(words)
+  # Put qualifying words and their scores into a hash
+  winning_word = Hash.new
+  words.each do |word|
+    winning_word[word] = score_word(word)
+  end
+  # Find highest score
+  winning_word.select! {|key, value| value == winning_word.values.max}
+  # If there are multiple words with that highest score...
+  if winning_word.length > 1
+    winning_word.select! {|key, value| key.length == 10}
+      if winning_word.length > 1
+        p winning_word
+    #   end
+    # p winning_word
+    # else
+    #   return
+  #   new_hash {
+  #     word: winning_word[0].key,
+  #     value: winning_word[0].value
+  #   }
+  # return new_hash
+  end
+    #   winning_word.min_by {|key, value| key.length}
+    #   return winning_word
+    # end
+end
+#   current_score = score_word(word)
+#   p word
+#   p "current score: #{current_score}"
+#   if current_score > winning_word[:score]
+#     winning_word[:word] = word
+#     winning_word[:score] = current_score
+#     p winning_word
+#   elsif current_score == winning_word[:score] && word.size == 10
+#     winning_word[:word] = word
+#     winning_word[:score] = current_score
+#     p winning_word
+#   elsif current_score == winning_word[:score] && word.length < winning_word[:word].length
+#     winning_word[:word] = word
+#     winning_word[:score] = current_score
+#     p winning_word
+#   elsif current_score == winning_word[:score] && word.length == winning_word[:word].length
+#     p winning_word
+#   end
+# end
+#   return winning_word
+# end
+
+p highest_score_from(['ttt', 'eeeeeeeeee', 'dddddx','aaaaaaaaaa'])
