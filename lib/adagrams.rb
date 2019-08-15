@@ -64,17 +64,20 @@ def draw_letters ()
     # Wave 2 Problem
     def uses_available_letters?(input, letters_in_hand)
         word = input.downcase.split('')
+        letters_in_hand = letters_in_hand.join('').downcase.split('')
         same_letters = letters_in_hand.shuffle
         
         word.each do |letter|
             if same_letters.include?(letter)
+                # binding.pry
                 letter_location = same_letters.index(letter)
                 same_letters.delete_at(letter_location)
             else
                 return false
-            end
+            end                
+            
         end
-        
+        return true
     end
     
     # Wave 3 Problem
@@ -99,7 +102,6 @@ def draw_letters ()
                 total_score += 10
             end
         end
-        
         if user_word.length > 6
             total_score += 8
         end
@@ -112,35 +114,47 @@ def draw_letters ()
     def highest_score_from(words)
         winning_word = {}
         
-        max_word_score = 0
-        max_word = ""
+        winning_word_score = 0
+        winning_word = ""
         winning_word_letter_count = 0
-        
+
+        score_hash = {}
+
         words.each do |word|
-            if score_word(word) > max_word_score
-                max_word_score = score_word(word)
-                max_word = word
-                winning_word_letter_count = word.length
-                
-            elsif score_word(word) == max_word_score 
-                if word.length == 10
-                    max_word_score = score_word(word)
-                    max_word = word
-                    winning_word_letter_count = word.length
-                elsif word.length < winning_word_letter_count
-                    max_word_score = score_word(word)
-                    max_word = word
-                    winning_word_letter_count = word.length
-                end
+            score_hash[word] = score_word(word)
+        end
+
+        max_value = score_hash.values.max
+
+        tie = {}
+
+        score_hash.each do |word, score|
+            if score == max_value
+                tie[word] = score
             end
         end
         
-        
+        shortest_word = "xxxxxxxxxx"
+
+        tie.each do |word,score|
+            if word.length == 10
+                winning_word = {
+                    word: word,
+                    score: score
+                }
+                return winning_word
+            elsif word.length < shortest_word.length
+                shortest_word = word
+                winning_word_score = score
+            end
+        end
+
         winning_word = {
-            word: max_word,
-            score: max_word_score
+            word: shortest_word,
+            score: winning_word_score
         }
         return winning_word
+
     end
     
     # Wave 5 Problem
