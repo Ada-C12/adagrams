@@ -146,29 +146,3 @@ def highest_score_from(words)
   
   return winning_word
 end 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
