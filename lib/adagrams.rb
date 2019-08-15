@@ -83,30 +83,30 @@ def score_word(word)
   return total
 end
 
-# #wave_4
-# def highest_score_from(words)
-#   one_point_letter = %w[A E I O U L N R S T]
-#   two_point_letter = %w[D G]
-#   three_point_letter = %w[B C M P]
-#   four_point_letter = %w[F H V W Y]
-#   five_point_letter = %w[K]
-#   eight_point_letter = %w[J X]
-#   ten_point_letter = %w[Q Z]
+#wave_4
+def highest_score_from(words)
+  one_point_letter = %w[A E I O U L N R S T]
+  two_point_letter = %w[D G]
+  three_point_letter = %w[B C M P]
+  four_point_letter = %w[F H V W Y]
+  five_point_letter = %w[K]
+  eight_point_letter = %w[J X]
+  ten_point_letter = %w[Q Z]
   
-#   winner = {
-#     word: nil,
-#     score: 0
-#   }
-#   words.each do |word|
-#     total = score_word(word)
-#     if total > winner[:score]
-#       winner[:word] = word
-#       winner[:score] = total
-#     #elsif 
-#     end
-#     puts "WORD = #{word}  Score = #{total}"
-#   end 
+  winner = {
+    word: nil,
+    score: 0
+  }
+  words.each do |word|
+    total = score_word(word)
+    if total > winner[:score]
+      winner[:word] = word
+      winner[:score] = total
+    #elsif 
+    end
+    puts "WORD = #{word}  Score = #{total}"
+  end 
   
-#   puts "WINNER: #{winner}"
-#   return winner
-# end
+  puts "WINNER: #{winner}"
+  return winner
+end
