@@ -69,7 +69,6 @@ def draw_letters ()
         
         word.each do |letter|
             if same_letters.include?(letter)
-                # binding.pry
                 letter_location = same_letters.index(letter)
                 same_letters.delete_at(letter_location)
             else
