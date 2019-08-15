@@ -18,13 +18,8 @@ def draw_letters
   return players_letters
 end
 
-#player_one_letters = draw_letters
-#p player_one_letters
-
 # wave2 code
 
-#print "Create a word using your pile letters: >"
-#input = gets.chomp.upcase
 
 def uses_available_letters?(input, letters_in_hand)
   user_word = input.upcase.chars
@@ -37,8 +32,6 @@ def uses_available_letters?(input, letters_in_hand)
     end
   end
   
-  #p word_hash
-
   full_pile = {}
   letters_in_hand.each do |letter|
     if full_pile["#{letter}"].nil?
@@ -46,13 +39,74 @@ def uses_available_letters?(input, letters_in_hand)
     else
       full_pile["#{letter}"] += 1
     end
-  end 
-   
-   #p full_pile
-
+  end
   return word_hash.all? do |letter, count|
     full_pile.has_key?(letter) && (full_pile[letter] >= word_hash[letter])
   end
-
-#p full_pile
 end
+
+#Wave_3
+
+def score_word(word)
+  one_point_letter = %w[A E I O U L N R S T]
+  two_point_letter = %w[D G]
+  three_point_letter = %w[B C M P]
+  four_point_letter = %w[F H V W Y]
+  five_point_letter = %w[K]
+  eight_point_letter = %w[J X]
+  ten_point_letter = %w[Q Z]
+  
+  letters = word.upcase.chars
+  total = 0
+  letters.each do |score|
+    if one_point_letter.include?(score)
+      total += 1
+    elsif two_point_letter.include?(score)
+      total += 2
+    elsif three_point_letter.include?(score)
+      total += 3
+    elsif four_point_letter.include?(score)
+      total += 4
+    elsif five_point_letter.include?(score)
+      total += 5
+    elsif eight_point_letter.include?(score)
+      total += 8
+    elsif ten_point_letter.include?(score)
+      total += 10
+    end
+  end 
+  
+  extra_points = [7, 8, 9, 10]
+  if extra_points.include?(letters.length)
+    total += 8
+  end
+  return total
+end
+
+# #wave_4
+# def highest_score_from(words)
+#   one_point_letter = %w[A E I O U L N R S T]
+#   two_point_letter = %w[D G]
+#   three_point_letter = %w[B C M P]
+#   four_point_letter = %w[F H V W Y]
+#   five_point_letter = %w[K]
+#   eight_point_letter = %w[J X]
+#   ten_point_letter = %w[Q Z]
+  
+#   winner = {
+#     word: nil,
+#     score: 0
+#   }
+#   words.each do |word|
+#     total = score_word(word)
+#     if total > winner[:score]
+#       winner[:word] = word
+#       winner[:score] = total
+#     #elsif 
+#     end
+#     puts "WORD = #{word}  Score = #{total}"
+#   end 
+  
+#   puts "WINNER: #{winner}"
+#   return winner
+# end
