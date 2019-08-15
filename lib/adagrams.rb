@@ -1,4 +1,5 @@
 require 'pry'
+require 'csv'
 
 def return_letter_pool_hash
   
@@ -121,4 +122,19 @@ def highest_score_from(words)
     end
     
   end
+end
+
+def is_in_english_dict?(input)
+  
+  dict_array = []
+  CSV.foreach("assets/dictionary-english.csv") do |row|
+    dict_array << row
+  end
+  
+  dict_array = dict_array.flatten
+  
+  answer = dict_array.include?(input.downcase) ? true : false
+  
+  return answer
+  
 end
