@@ -30,10 +30,6 @@ def uses_available_letters?(input, letters_in_hand)
   
   # Check if the input string's characters exist in the user hand 
   
-  # Julia's note: the "unless" statement below was formerly referencing
-  # input_array and had "return true" on the second-to-last line. 
-  # The "return true" happened outside the "unless" statement, so the 
-  # block was always returning true.   
   input_array.each do |letter|
     unless letters_in_hand.include?(letter) 
       return false
@@ -43,9 +39,6 @@ def uses_available_letters?(input, letters_in_hand)
   # Check if the input string's characters do not exceed the amount of characters 
   # available in letters_in_hand
   # Making a hash from letters_in_hand with letters as keys, and counts as values
-  
-  # Julia's note: the "each" method below was originally being called on 
-  # the (empty) letters_in_hand hash so it wasn't producing the desired results.
   letters_hand_hash = {} 
   letters_in_hand.each do |letter| #looping thru hand, counting instances of each character
     
@@ -69,12 +62,6 @@ def uses_available_letters?(input, letters_in_hand)
   end 
   
   # comparing input_hash to hand_hash
-  
-  # Julia's note: we formerly had "if hand_count <= count", which was saying 
-  # "if the count of the letter in our hand is less than the count of the letter
-  # in our word, go on to the next element" ... but that's the opposite of what we
-  # wanted. We only want to proceed if the count of the letter in our hand is 
-  # more than (or equal to) to the count of the letter in our word. 
   input_hash.each do |letter, count|
     if letters_hand_hash.key?(letter)
       hand_count = letters_hand_hash[letter]
@@ -130,22 +117,37 @@ end
 
 # Wave 4
 def highest_score_from(words)
-  played_words = [] #will contain 3 words 
+  # "words" is an array of strings that is provided via driver code
   word_scores = [] #contains score for each word
-  summary = [] #contains a hash for each word, the hash contains the word and score
+  word_lengths = [] #contains lengths for each word
   
-  played_words.push(word) #ask for a word and add it to list
-  word_letters = word.chars #convert string to array of characters
-  word_length = word_letters.length #count the length of characters 
-  final_score = score_word(word) #calculate the score for each word 
-  word_scores.push(final_score) #add the score for each word in a list
-  tracker = Hash.new #save the word, word_length and final_score as a hash, key/value pair 
-  tracker[:word] = word
-  tracker[:length] = word_length
-  tracker[:score] = final_score
-  summary.push(tracker)
-  return played_words
+  # need to either define or get rid of "word"
+  
+  words.each do |word|
+    word_letters = word.chars #convert string to array of characters
+    word_length = word_letters.length #count the length of characters 
+    word_lengths.push(word_length) #add the length of the word into word_lengths list
+    #calculate the score for each word
+    final_score = score_word(word) 
+    word_scores.push(final_score) #add the score for each word in a list
+  end 
+  
+  # determine which word has the highest score and return associated word
+  highest_score = word_scores.max
+  
+  # determines the word that corresponds to the highest_score
+  word_with_highest_score = words[word_scores.index(highest_score)]
+  
+  # make hash to return winning word and associated score
+  winning_word = {}
+  winning_word[:word] = word_with_highest_score
+  winning_word[:score] = highest_score
+  p winning_word
+  
+  return winning_word
 end 
+
+
 
 
 
