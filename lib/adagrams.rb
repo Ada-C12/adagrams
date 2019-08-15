@@ -3,32 +3,32 @@ require 'pry'
 def return_letter_pool_hash
   
   letter_pool_hash = {
-  "A" => 9,
-  "B" => 2,
-  "C" => 2,
-  "D" => 4,
-  "E" => 12,
-  "F" => 2,
-  "G" => 3,
-  "H" => 2,
-  "I" => 9,
-  "J" => 1,
-  "K" => 1,
-  "L" => 4,
-  "M" => 2,
-  "N" => 6,
-  "O" => 8,
-  "P" => 2,
-  "Q" => 1,
-  "R" => 6,
-  "S" => 4,
-  "T" => 6,
-  "U" => 4,
-  "V" => 2,
-  "W" => 2,
-  "X" => 1,
-  "Y" => 2,
-  "Z" => 1
+  "A" => {number_of_tiles: 9, number_of_points: 1},
+  "B" => {number_of_tiles: 2, number_of_points: 3},
+  "C" => {number_of_tiles: 2, number_of_points: 3},
+  "D" => {number_of_tiles: 4, number_of_points: 2},
+  "E" => {number_of_tiles: 12, number_of_points: 1},
+  "F" => {number_of_tiles: 2, number_of_points: 4},
+  "G" => {number_of_tiles: 3, number_of_points: 2},
+  "H" => {number_of_tiles: 2, number_of_points: 4},
+  "I" => {number_of_tiles: 9, number_of_points: 1},
+  "J" => {number_of_tiles: 1, number_of_points: 8},
+  "K" => {number_of_tiles: 1, number_of_points: 5},
+  "L" => {number_of_tiles: 4, number_of_points: 1},
+  "M" => {number_of_tiles: 2, number_of_points: 3},
+  "N" => {number_of_tiles: 6, number_of_points: 1},
+  "O" => {number_of_tiles: 8, number_of_points: 1},
+  "P" => {number_of_tiles: 2, number_of_points: 3},
+  "Q" => {number_of_tiles: 1, number_of_points: 10},
+  "R" => {number_of_tiles: 6, number_of_points: 1},
+  "S" => {number_of_tiles: 4, number_of_points: 1},
+  "T" => {number_of_tiles: 6, number_of_points: 1},
+  "U" => {number_of_tiles: 4, number_of_points: 1},
+  "V" => {number_of_tiles: 2, number_of_points: 4},
+  "W" => {number_of_tiles: 2, number_of_points: 4},
+  "X" => {number_of_tiles: 1, number_of_points: 8},
+  "Y" => {number_of_tiles: 2, number_of_points: 4},
+  "Z" => {number_of_tiles: 1, number_of_points: 10}
 }
 
 return letter_pool_hash
@@ -39,8 +39,8 @@ def draw_letters
   
   letter_pool_hash = return_letter_pool_hash
   
-  letter_pool_array = letter_pool_hash.map do |letter, amount|
-    (letter * amount).split("")
+  letter_pool_array = letter_pool_hash.map do |letter, letter_info|
+    (letter * letter_info[:number_of_tiles]).split("")
   end
   
   letter_pool_array = letter_pool_array.flatten
