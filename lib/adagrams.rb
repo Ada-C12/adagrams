@@ -75,10 +75,10 @@ def score_word(word)
   }
 
   score_total = 0
-  word_array = word.upcase.split("")
-  word_array.each do |letter|
-    score = score_chart.find {|key, values|
-      values.include?(letter)
+  letters_array = word.upcase.split("")
+  letters_array.each do |letter|
+    score = score_chart.find {|points, letters|
+      letters.include?(letter)
     }.first
     score_total += score
   end 
@@ -93,15 +93,15 @@ def highest_score_from(words)
   final_scores = {}
   winning_words = []
 
-  words.each do |entry|
-    final_scores[entry] = score_word(entry)
+  words.each do |word|
+    final_scores[word] = score_word(word)
   end 
   scores_only = final_scores.values
 
   
-  final_scores.each do |key, value|
-    if value == scores_only.max
-      winning_words.push(key)
+  final_scores.each do |word, score|
+    if score == scores_only.max
+      winning_words.push(word)
     end 
   end 
 
@@ -122,7 +122,6 @@ def highest_score_from(words)
 end 
 
 # WAVE 5 - OPTIONAL
-#when running w/o wave-5 file, add .. to csv location ("../assets..")
 def is_in_english_dict? (input)
   dictionary = CSV.read("assets/dictionary-english.csv")
   input_array = []
