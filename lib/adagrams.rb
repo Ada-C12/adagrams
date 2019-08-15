@@ -1,4 +1,5 @@
-require 'pry'
+require 'csv'
+
 def draw_letters
   all_letters_hash = {
     "A" => 9,
@@ -105,6 +106,7 @@ def score_word(word)
   return total_points.sum
 end
 
+# REPLACE HIGH SCORE HASH STEPS WITH A HELPER METHOD
 def highest_score_from(words)
   # Put qualifying words and their scores into a hash
   winning_words = Hash.new
@@ -137,4 +139,15 @@ def highest_score_from(words)
     }
   end
 end
-highest_score_from(['eee', 'da'])
+
+def is_in_english_dict? (input)
+  dictionary = CSV.open("assets/dictionary-english.csv")
+  dictionary.each do |array|
+    array.each do |word|
+      if word == input.downcase
+        return true
+      end
+    end
+  end
+  return false
+end
