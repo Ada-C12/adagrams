@@ -7,6 +7,7 @@ require_relative '../lib/adagrams'
 # Get that nice colorized output
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+# wave 1
 describe 'Adagrams' do
   describe 'draw_letters method' do
     it 'draws ten letters from the letter pool' do
@@ -26,6 +27,7 @@ describe 'Adagrams' do
     end
   end
 
+  # wave 2
   describe 'uses_available_letters? method' do
 
     it 'returns true if the submitted letters are valid against the drawn letters' do
@@ -67,6 +69,7 @@ describe 'Adagrams' do
     end
   end
 
+  # wave 3
   describe 'score_word method' do
     it 'returns an accurate numerical score according to the score chart' do
       expect(score_word("A")).must_equal 1
@@ -91,6 +94,7 @@ describe 'Adagrams' do
     end
   end
 
+  # wave 4
   describe 'highest_score_from method' do
     it 'returns a hash that contains the word and score of best word in an array' do
       words = ['X', 'XX', 'XXX', 'XXXX']
@@ -143,7 +147,8 @@ describe 'Adagrams' do
       # verify both have a score of 10
       expect(score_word(words.first)).must_equal 18
       expect(score_word(words.last)).must_equal 18
-
+      require "pry"
+      binding.pry
       best_word = highest_score_from words
 
       expect(best_word[:word]).must_equal 'AAAAAAAAAA'
