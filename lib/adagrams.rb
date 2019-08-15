@@ -74,3 +74,36 @@ def score_word(word)
 
   return score
 end
+
+# WAVE#4
+def highest_score_from(words)
+  scores = words.map do |word|
+    score_word(word)
+  end
+  highest_score = scores.max
+  p scores
+
+  winner = nil
+  words_with_scores = words.zip(scores)
+  winning_words_with_scores = words_with_scores.select {| word, score | score == highest_score }
+  winning_words = winning_words_with_scores.map {| word, score| word }
+  # scores.each do |score|
+    # p score
+    # p words[scores.index(scores.max)]
+
+    # if scores.max >= highest_score
+    #   winning_words << words[scores.index(scores.max)] 
+    #   scores.delete_at(scores.index(scores.max))
+    #   words.delete_at(scores.index(scores.max)-1)
+    # end
+  # end
+  winning_words.each do |word|
+    if word.length == 10
+      winner = word
+      return {word: winner, score: highest_score}
+    else 
+      winner = winning_words.min {|x,y| x.size <=> y.size}
+    end
+  end
+  return {word: winner, score: highest_score}
+end
