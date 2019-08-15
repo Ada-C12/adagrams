@@ -178,4 +178,23 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe "is_in_english_dict?" do
+
+    it 'should say cat is a word' do
+
+      input = "cat"
+
+      output = is_in_english_dict?(input)
+      expect(output).must_equal true
+    end
+
+    it 'should say adagrams is not a word' do
+
+      input = "adagrams"
+
+      output = is_in_english_dict?(input)
+      expect(output).must_equal false
+    end
+  end
 end
