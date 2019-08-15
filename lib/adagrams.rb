@@ -84,15 +84,27 @@ def score_word(word)
 end
 
 #wave_4
+
+def tie_breaker(old_word, new_word)
+  return old_word if old_word.length == 10
+  return new_word if new_word.length == 10
+  tie_breaker_length_array = [old_word, new_word]
+  winner = tie_breaker_length_array.min_by do |word|
+    word.length
+  end
+  return winner 
+end
+
 def highest_score_from(words)
-  one_point_letter = %w[A E I O U L N R S T]
-  two_point_letter = %w[D G]
-  three_point_letter = %w[B C M P]
-  four_point_letter = %w[F H V W Y]
-  five_point_letter = %w[K]
-  eight_point_letter = %w[J X]
-  ten_point_letter = %w[Q Z]
-  
+  # one_point_letter = %w[A E I O U L N R S T]
+  # two_point_letter = %w[D G]
+  # three_point_letter = %w[B C M P]
+  # four_point_letter = %w[F H V W Y]
+  # five_point_letter = %w[K]
+  # eight_point_letter = %w[J X]
+  # ten_point_letter = %w[Q Z]
+
+
   winner = {
     word: nil,
     score: 0
@@ -102,7 +114,9 @@ def highest_score_from(words)
     if total > winner[:score]
       winner[:word] = word
       winner[:score] = total
-    #elsif 
+    elsif winner[:score] == total
+      winner[:word] = tie_breaker(winner[:word], word)
+      winner[:score] = total
     end
     puts "WORD = #{word}  Score = #{total}"
   end 
@@ -110,3 +124,43 @@ def highest_score_from(words)
   puts "WINNER: #{winner}"
   return winner
 end
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+#   def tie_breaker(winner, contender, total)
+#    if winner[:score].lenth == 10 && total.length == 10
+#        return winner
+#    elsif winner[:score].length == 10
+#        return winner
+#    elsif total.length == 10
+#        return contender
+#    else total.length < winner[:score].length
+#        winner[:word] = contender
+#        winner[:score] = total
+#        return winner
+#    elsif winner[:score].length < total.length
+#        return winner
+#    end
+# end
+  
+  
