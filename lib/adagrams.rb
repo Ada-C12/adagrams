@@ -80,7 +80,7 @@ def highest_score_from(words)
   # tie_breaker_words = []
   words.each do |object|
     word_score = score_word(object)
-    length_of_obj = object.length
+    # length_of_obj = object.length
     
     # if length_of_obj == 10
     #   winning_word = object
@@ -104,13 +104,16 @@ def highest_score_from(words)
       # tie_breaker_words>> winning_word
       # tie_breaker_words>> object
     elsif word_score == score
-      # length_of_obj = object.length
-      # length_of_winning_word = winning_word.length
-      # if length_of_obj = 10
-      #   winning_word = object
-      
-      winning_word = tiebreaker_length(winning_word, object) 
-      
+      length_of_obj = object.length
+      length_of_winning_word = winning_word.length
+      if length_of_winning_word == 10
+        winning_word = winning_word
+      elsif length_of_obj == 10
+        winning_word = object
+      else
+        winning_word = tiebreaker_length(winning_word, object)
+        
+      end  
       
     end
     # p winning_word
@@ -131,11 +134,20 @@ def highest_score_from(words)
 end 
 
 def tiebreaker_length (old_word, new_word)
+  # length_old = old_word.length
+  # length_new = new_word.length
+  # #if length_old == length_new 
+  # if length_new == 10
+  #   winning_word = new_word
+  #   if length_old == 10
+  #     winning_word = old_word
+  #   end
   #p old_word
   #p new_word
   tiebreaker_len_arr = [old_word, new_word]
   tiebreaker_len_arr.min { |old_word, new_word| old_word.length <=> new_word.length }  
 end
+#end
 
 
 
