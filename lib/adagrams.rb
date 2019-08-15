@@ -1,5 +1,7 @@
 require "CSV"
 
+ENGLISH_DICT = CSV.read("assets/dictionary-english.csv")
+
 # Wave 1
 def draw_letters
   all_tiles = { 
@@ -102,12 +104,5 @@ end
 
 # Wave 5
 def is_in_english_dict?(input)
-  
-  CSV.foreach("assets/dictionary-english.csv") do |row|
-    if row[0] == input.downcase
-      return true
-    end
-  end
-  
-  return false  
+  return ENGLISH_DICT.include?([input.downcase])
 end
