@@ -1,3 +1,5 @@
+require 'pry'
+
 letter_pool = %w(a a a a a a a a a b b c c d d d d e e e e e e e e e e e e f f g g g h h i i i i i i i i i j k l l l l m m n n n n n n o o o o o o o o p p q r r r r r r s s s s t t t t t t u u u u v v w w x y y z)
 
 
@@ -19,21 +21,25 @@ end
 
 
 
-# Wave two - DRAFT
+# Wave 2: uses_available_letters?
 # Need to review lines 57-67, b/c failing test for returning true if the submitted letters are valid against the drawn letters
 def uses_available_letters?(input, letters_in_hand)
+  
+  # Make input word uppercase and then split it into an array
   input_array = input.upcase.chars
-  # Checking if the input string's characters exists in the user hand 
+  
+  # Check if the input string's characters exist in the user hand 
   input_array.each do |letter|
-    unless letters_in_hand.include?(letter) #adding true or false to letters_included array
+    unless letters_in_hand.include?(letter) 
       return false
     end
   end 
+  
   # Checking if the input string's characters do not exceed the amount of characters 
   # available in letters_in_hand
   # making a hash from letters_in_hand with letters as keys, and counts as values
   letters_hand_hash = {} #looping thru hand, counting instances of each character
-  letters_hand_hash.each do |letter|
+  letters_in_hand.each do |letter| # originally letters_hand_hash, which is currently empty
     found_letter = letter
     if letters_hand_hash.key?(found_letter)
       letters_hand_hash[found_letter] += 1
@@ -57,14 +63,15 @@ def uses_available_letters?(input, letters_in_hand)
   input_hash.each do |letter, count|
     if letters_hand_hash.key?(letter)
       hand_count = letters_hand_hash[letter]
-      if hand_count <= count
+      
+      if hand_count >= count
         next
       else
         return false
       end 
     end
-    return true 
   end 
+  return true 
   
 end 
 
