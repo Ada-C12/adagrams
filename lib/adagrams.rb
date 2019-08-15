@@ -107,17 +107,13 @@ end
 
 def highest_score_from(words)
   # Put qualifying words and their scores into a hash
-  winning_word = Hash.new
-  words.each do |word|
-    winning_word[word] = score_word(word)
-  end
+  winning_words = Hash.new
+  words.each { |word| winning_words[word] = score_word(word)}
   # Find highest score
-  winning_word.select! {|key, value| value == winning_word.values.max}
+  winning_words.select! {|key, value| value == winning_words.values.max}
   # If there are multiple words with that highest score...
-  if winning_word.length > 1
-    winning_word.select! {|key, value| key.length == 10}
-      if winning_word.length > 1
-        p winning_word
+  winning_words.select! {|key, value| key.length == 10} if winning_word.length > 1
+  p winning_words
     #   end
     # p winning_word
     # else
