@@ -3,7 +3,7 @@ def draw_letters
   pool_of_letters = {
     "A" => 9, "B" => 2, "C" => 2, "D" => 4, "E" => 12, "F" => 2, "G" => 3, "H" => 2, "I" => 9, "J" => 1, "K" => 1, "L" => 4, "M" => 2, "N" => 6, "O" => 8, "P" => 2, "Q" => 1, "R" => 6, "S" => 4, "T" => 6, "U" => 4, "V" => 2, "W" =>2, "X" => 1, "Y" => 2, "Z" => 1
   }
-  
+
   players_letters = []
   alphabet = ("A".."Z").to_a
   
@@ -14,13 +14,10 @@ def draw_letters
       pool_of_letters[random_letter] -= 1
     end
   end
-  
   return players_letters
 end
 
 # wave2 code
-
-
 def uses_available_letters?(input, letters_in_hand)
   user_word = input.upcase.chars
   word_hash = {}
@@ -46,7 +43,6 @@ def uses_available_letters?(input, letters_in_hand)
 end
 
 #Wave_3
-
 def score_word(word)
   one_point_letter = %w[A E I O U L N R S T]
   two_point_letter = %w[D G]
@@ -96,15 +92,6 @@ def tie_breaker(old_word, new_word)
 end
 
 def highest_score_from(words)
-  # one_point_letter = %w[A E I O U L N R S T]
-  # two_point_letter = %w[D G]
-  # three_point_letter = %w[B C M P]
-  # four_point_letter = %w[F H V W Y]
-  # five_point_letter = %w[K]
-  # eight_point_letter = %w[J X]
-  # ten_point_letter = %w[Q Z]
-
-
   winner = {
     word: nil,
     score: 0
@@ -118,13 +105,9 @@ def highest_score_from(words)
       winner[:word] = tie_breaker(winner[:word], word)
       winner[:score] = total
     end
-    puts "WORD = #{word}  Score = #{total}"
   end 
-  
-  puts "WINNER: #{winner}"
   return winner
 end
-  
 
 
 
@@ -135,7 +118,8 @@ end
 
 
 
-  
+
+
 
 
 
@@ -162,5 +146,5 @@ end
 #        return winner
 #    end
 # end
-  
-  
+
+
