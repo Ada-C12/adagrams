@@ -31,30 +31,36 @@ def draw_letters
     { character: "y", quantity: 2, score: 4 },
     { character: "z", quantity: 1, score: 10 },
   ]
+  # letter_bucket creates an empty array that will be used to have a representative (gigantic) alphabet library
   letter_bucket = []
   letters.each do |letter|
     letter[:quantity].times do
       letter_bucket << letter[:character]
     end
   end
+  # hand creates an empty array that will have 10 randomly drawn letters
   hand = []
   10.times do 
     hand << letter_bucket.slice(rand(0...letter_bucket.length)) 
   end
-  letter_bucket << hand # restores the "used" letters to the bucket so they are not "used up"
+  # restores the "used" letters to letter_bucket so they are not "used up"
+  letter_bucket << hand
   letter_bucket.flatten!.sort!
-
-return hand
+  return hand
 end
 
-# wave 2 - validates user's inputted word
+# wave 2 
+# iterate over user-provided input and hand dealt
+# as the characters match, they are removed from each collection
 def uses_available_letters?(input, letters_in_hand)
+  input = input.split('')
   letters_in_hand.reject do |letter|
     if input.include?(letter)
       input.slice!(input.index(letter))
     end
   end
-  if input.length <= 0
+  # the length of the input checks that the user used only available letters
+  if input.length == 0
     return true
   else
     return false
@@ -63,16 +69,18 @@ end
 
 # wave 3
 
-def score_word (word) # word is a string of characters
+# manipulate user input
+def score_word (word)
   score = 0
   word = word.downcase
-  puts word
-  awesome = word.split(//)
-  binding.pry
-  if awesome.length >= 7 && awesome.length <= 10
+  word = word.split('')
+
+  # award additional points per game rules
+  if word.length >= 7 && word.length <= 10
     score =+ 8
   end
 
+  # iterates over the input to assign score based on alphabet library
   letters = [
     { character: "a", quantity: 9, score: 1 },
     { character: "b", quantity: 2, score: 3 },
@@ -101,15 +109,45 @@ def score_word (word) # word is a string of characters
     { character: "y", quantity: 2, score: 4 },
     { character: "z", quantity: 1, score: 10 },
   ]
-  awesome.each do |character|
+  word.each do |character|
     letters.each do |letter_ref|
       if character == letter_ref[:character]
         score = score + letter_ref[:score]
       end
     end
   end
-
-  return score #returns an integer that represents the score
+  return score
 end
 
-# LETS TROUBLESHOOT FROM HERE TOMORROW!!!
+# wave 4
+
+def highest_score_from (words)
+  
+  #hash to be returned
+  winning_hash = {
+    :word => "",
+    :score => 0
+  }
+
+  words.each do |word|
+
+    wordscore = score_word(word)    
+
+    if wordscore > winning_hash[:score]
+      winning_hash[:word] = word
+      winning_hash[:score] = wordscore
+
+    elsif wordscore == winning_hash[:score]
+      if word.length == 10 && winning_hash[:word].length != 10
+        winning_hash[:word] = word
+        winning_hash[:score] = wordscore  
+      elsif word.length < winning_hash[:word].length && winning_hash[:word].length != 10
+        winning_hash[:word] = word
+        winning_hash[:score] = wordscore    
+      end
+    end
+  end
+
+return winning_hash
+
+end
