@@ -2,17 +2,15 @@ require "csv"
 
 def draw_letters 
   letter_pool = ("a" * 10 + "b" * 2 + "c" * 2 + "d" * 4 + "e" * 12 + "f" * 2 + "g" * 3 + "h" * 2 + "i" * 9 + "j" + "k" + "l" * 4 + "m" * 2 + "n" * 6 + "o" * 8 + "p" * 2 + "q" + "r" * 6 + "s" * 4 + "t" * 6 + "u" * 4 + "v" * 2 + "w" * 2 + "x" + "y" * 2 + "z").chars
-  letter_hand = []
   letter_hand = letter_pool.sample(10)
   return letter_hand
 end 
 
 def uses_available_letters?(input, letters_in_hand)
-  input_array = input.chars 
   letters_copy = letters_in_hand.dup
-  input_array.each do |letter|
+  input.chars.each do |letter|
     if letters_copy.include?(letter) 
-      letters_copy.delete(letter)
+      letters_copy.delete_at(letters_copy.index(letter))
     else 
       return false
     end
@@ -32,8 +30,7 @@ def score_word(word)
   }
   
   score = 0
-  word_array = word.chars
-  word_array.each do |letter| 
+  word.chars.each do |letter| 
     score_hash.each do |letters_string, points|
       if letters_string.include?(letter.upcase) 
         score += points
@@ -52,35 +49,36 @@ def highest_score_from(words)
   end   
 
   max_score = scores.max 
-  max_score_index = scores.each_index.select{|i| scores[i] == max_score}
+  max_score_indices = scores.each_index.select{|i| scores[i] == max_score}
 
-  if max_score_index.count == 1
+  if max_score_indices.count == 1
     winning_word = 
     {
-      word: words[max_score_index[0]],
+      word: words[max_score_indices[0]],
       score: max_score 
     }
     return winning_word
   else
     best_score_words = []
     best_score_words_length = []
-    max_score_index.each do |i| 
+    max_score_indices.each do |i| 
       best_score_words << words[i]   
       best_score_words_length << words[i].length
     end
     if best_score_words_length.include?(10)  
-    winning_index = best_score_words_length.index(10)
-    return winning_word = {
+      winning_index = best_score_words_length.index(10)
+      return winning_word = 
+      {
       word: best_score_words[winning_index],
       score: max_score
-    } 
+      } 
     else 
       return winning_word = 
       { 
         word: best_score_words.min { |a, b| a.length <=> b.length },
         score: max_score
       } 
-  end 
+    end 
   end
 end
 
@@ -93,5 +91,4 @@ def is_in_english_dict?(user_input_word)
   return false
 end
 
-#problem. We were deleting each letter that the user was getting, but with the original function, it wasn't deleting only one letter, it was deleting all letters from the bank that matched.
 
