@@ -112,22 +112,25 @@ def highest_score_from(words)
   # Find highest score
   winning_words.select! {|key, value| value == winning_words.values.max}
   # If there are multiple words with that highest score...
-  winning_words.select! {|key, value| key.length == 10} if winning_word.length > 1
-  p winning_words
-    #   end
-    # p winning_word
-    # else
-    #   return
-  #   new_hash {
-  #     word: winning_word[0].key,
-  #     value: winning_word[0].value
-  #   }
-  # return new_hash
+  # The first one with ten letters gets returned, whether there is one or are multiple
+  if winning_words.length > 1
+    winning_words.select! {|key, value| key.length == 10}
+    high_score_hash = {
+      word: winning_words.keys[0],
+      score: winning_words.values[0]
+    }
+    return high_score_hash
+  else
+   winning_words.min_by {|key, value| key == key.length}
+   high_score_hash = {
+    word: winning_words.keys[0],
+    score: winning_words.values[0]
+  }
+  return high_score_hash
   end
-    #   winning_word.min_by {|key, value| key.length}
-    #   return winning_word
-    # end
 end
+
+
 #   current_score = score_word(word)
 #   p word
 #   p "current score: #{current_score}"
@@ -150,4 +153,3 @@ end
 #   return winning_word
 # end
 
-p highest_score_from(['ttt', 'eeeeeeeeee', 'dddddx','aaaaaaaaaa'])
