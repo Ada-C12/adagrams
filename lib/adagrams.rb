@@ -44,7 +44,7 @@ def uses_available_letters?(input, letters_in_hand)
   letters_in_hand.each do |letter|
     letter_count[letter] += 1
   end
-  
+
   # Check the hand array against the available letters hash
   input.each do |letter|
     if letters_in_hand.include?(letter)
@@ -95,7 +95,7 @@ def score_word(word)
   total_points = input_array.map do |letter|
     points[letter]
   end
-  
+
   if input_array.size >= 7 && input_array.size < 11
     return total_points.sum + 8
   end
@@ -114,7 +114,7 @@ def highest_score_from(words)
   # If there are multiple words with that highest score...
   # The first one with ten letters gets returned, whether there is one or are multiple
   if winning_words.length > 1
-    if winning_words.include?(key.length(10))
+    if winning_words.any? {|key, value| key.length == 10}
       winning_words.select! {|key, value| key.length == 10}
       high_score_hash = {
         word: winning_words.keys[0],
@@ -122,36 +122,19 @@ def highest_score_from(words)
       }
       return high_score_hash
     else
-      winning_words.min_by {|key, value| key == key.length}
+      winning_words = winning_words.sort_by {|key, value| key.length }
       high_score_hash = {
-        word: winning_words.keys[0],
-        score: winning_words.values[0]
+        word: winning_words[0][0],
+        score: winning_words[0][1]
       }
+      p high_score_hash
       return high_score_hash
     end
+  else
+    high_score_hash = {
+      word: winning_words.keys[0],
+      score: winning_words.values[0]
+    }
   end
-  
-  
-  #   current_score = score_word(word)
-  #   p word
-  #   p "current score: #{current_score}"
-  #   if current_score > winning_word[:score]
-  #     winning_word[:word] = word
-  #     winning_word[:score] = current_score
-  #     p winning_word
-  #   elsif current_score == winning_word[:score] && word.size == 10
-  #     winning_word[:word] = word
-  #     winning_word[:score] = current_score
-  #     p winning_word
-  #   elsif current_score == winning_word[:score] && word.length < winning_word[:word].length
-  #     winning_word[:word] = word
-  #     winning_word[:score] = current_score
-  #     p winning_word
-  #   elsif current_score == winning_word[:score] && word.length == winning_word[:word].length
-  #     p winning_word
-  #   end
-  # end
-  #   return winning_word
-  # end
-  
-  
+end
+highest_score_from(['eee', 'da'])
