@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 
 def return_letter_pool_hash
