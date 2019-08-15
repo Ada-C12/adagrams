@@ -1,6 +1,5 @@
 
-require 'pry'
-
+require 'csv'
 
 def draw_letters 
     letters_pool = [("A " * 9).split, ("B " * 2).split, ("C " * 2).split, ("D " * 4).split, 
@@ -32,7 +31,7 @@ def draw_letters
     
     
     def score_word (input)
-        # create scoring hash 
+        
         score = { 
             1 => ["A","E","I","O","U","L","N","R","S","T"], 
             2 => ["D","G"], 
@@ -62,49 +61,52 @@ def draw_letters
     
     
     def highest_score_from (words)
-        scores = []
-        words.each do |word|
-            scores << score_word(word)
-        end 
-        word_score = words.zip(scores)
-        highest_score = {}
-        word_score.each do |i|
-            highest_score[i[0]] = i[1]
-        end
         
+        highest_score = {}
+        words.each do |word|
+            highest_score[word] = score_word(word)
+        end
         
         tie = {}
         
         highest_word = highest_score.max_by {|word, score| score}
-        highest_score.each do |key, value|
-            if value == highest_word[1] 
-                tie[key] = value 
+        highest_score.each do |word, score|
+            if score == highest_word[1] 
+                tie[word] = score
             end 
         end 
         
         shortest_word = "xxxxxxxxxx"
-        tie.keys.each do |i|
-            if i.length == 10 
-                shortest_word = i
+        tie.keys.each do |word|
+            if word.length == 10 
+                shortest_word = word
                 return {word: shortest_word, score: tie[shortest_word]}
-            elsif i.length < shortest_word.length
-                shortest_word = i
-                
-                
+            elsif word.length < shortest_word.length
+                shortest_word = word
             end
             
-        end 
-        
+        end
         
         return {word: shortest_word, score: tie[shortest_word]}
-        
     end
     
-    
- 
-    
+
     
     
+    
+    
+    
+    
+    def is_in_english_dict? (input)
+        table = CSV.read("../adagrams/assets/dictionary-english.csv")
+        table.flatten!
+        if table.include?(input.downcase)
+            return true
+        else
+            return false
+        end
+        
+    end
     
     
     
