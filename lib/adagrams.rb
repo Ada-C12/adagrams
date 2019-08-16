@@ -59,19 +59,32 @@ end
 
 def highest_score_from(words) #words is an array of all 
   # Returns a single hash that represents the data of a winning word and its score. The hash should have the following keys:
-# :word, whose value is a string of a word, and :score, whose value is the score of that word
+  # :word, whose value is a string of a word, and :score, whose value is the score of that word
   highest_score = {word: " ", score: 0}
   highest_scoring_word = words[0]
+  
   #word_list = score_word(words)
   words.each do |word|
+    
     # highest_score[:word] = word
     # highest_score[:score] = score_word(word)
     score = score_word(word)
     if score > highest_score[:score]
-      highest_score[:score] = score
-      highest_score[:word] = word
+      highest_score[:score] = score 
+      highest_score[:word] = word 
+    elsif score == highest_score[:score] 
+      current_highest = highest_score[:word].length
+      challenger = word.length  
+      if current_highest == 10
+        next
+      elsif challenger == 10
+        highest_score[:score] = score
+        highest_score[:word] = word
+      elsif challenger < current_highest
+        highest_score[:score] = score
+        highest_score[:word] = word
+      end
     end
-    #p highest_score
   end
   return highest_score
 end
