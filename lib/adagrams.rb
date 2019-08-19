@@ -1,4 +1,4 @@
-require "CSV"
+require "csv"
 
 ENGLISH_DICT = CSV.read("assets/dictionary-english.csv")
 
