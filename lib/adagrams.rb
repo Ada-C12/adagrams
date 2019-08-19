@@ -26,7 +26,6 @@ def uses_available_letters?(input, letters_in_hand)
   letters_in_hand2 += letters_in_hand
   input_array.each do |char|
     if !letters_in_hand2.include?(char)
-      puts "this didn't work"
       result = false
     else
       letters_in_hand2.delete_at(letters_in_hand2.index(char))
@@ -35,10 +34,36 @@ def uses_available_letters?(input, letters_in_hand)
   return result
 end
 
-
 #WAVE 3
 def score_word(word)
-  score_chart = {"A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1, "D" => 2, "G" => 2, "B" => 3, "C" => 3, "M" => 3, "P" => 3, "F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4, "K" => 5, "J" => 8, "X" => 8, "Q" => 10, "Z" => 10}
+  score_chart = {
+    "A" => 1,
+    "E" => 1,
+    "I" => 1,
+    "O" => 1,
+    "U" => 1,
+    "L" => 1,
+    "N" => 1,
+    "R" => 1,
+    "S" => 1,
+    "T" => 1,
+    "D" => 2,
+    "G" => 2,
+    "B" => 3,
+    "C" => 3,
+    "M" => 3,
+    "P" => 3,
+    "F" => 4,
+    "H" => 4,
+    "V" => 4,
+    "W" => 4,
+    "Y" => 4,
+    "K" => 5,
+    "J" => 8,
+    "X" => 8,
+    "Q" => 10,
+    "Z" => 10
+  }
   word = word.upcase
   word_array = word.chars
   score = 0
@@ -50,7 +75,7 @@ def score_word(word)
     points = points.to_i
     score += points
   end
-  p score
+  return score
 end
 
 
